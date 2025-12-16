@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Read Page</title>
+  <!-- Use one stable Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"/>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Jersey+25&display=swap');
+
+    /* General Styling */
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #ffffff;
+      color: #f5f6f7;
+      min-height: 100vh;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* Navbar */
+    .navbar {
+      background-color: #041D35;
+      padding: 10px 20px;
+    }
+
+    .navbar-brand {
+      font-weight: bold;
+      font-size: 24px;
+      color: white;
+    }
+
+    .navbar-brand .vibeGuard { color: #3399ff; font-size: 30px; }
+    .navbar-toggler { border-color: white; }
+    .navbar-toggler-icon {
+      background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3e%3cpath stroke='white' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+    }
+    .navbar-nav .nav-link {
+      color: #ffffff !important;
+      font-weight: 500;
+      padding: 8px 15px;
+      transition: background-color 0.3s, color 0.3s;
+    }
+    .navbar-nav .nav-link:hover { color: #3399ff !important; background-color: rgba(255,255,255,0.05); border-radius: 8px; }
+    .navbar-nav .nav-link.active { color: #3399ff !important; font-weight: bold; }
+
+    /* Basic nav/button controls */
+    .Basic-info { width: 100%; display:flex; flex-direction:column; height:35px; }
+    .basic { height:35px; display:flex; align-items:center; padding:0; width:100%; margin:0; }
+
+    /* Symptoms header/search */
+    .Symptoms {
+      display:flex;
+      justify-content:center;
+      width:100%;
+      padding: 0 10px;
+      box-sizing: border-box;
+    }
+    .symptoms-heading-div {
+      padding-top: 60px;
+      height: 140px;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      align-items:center;
+      text-align:center;
+      width:100%;
+      box-sizing:border-box;
+    }
+    #Symptoms-heading { font-weight:bolder; font-size:40px; margin-bottom:20px; color:#041D35; }
+
+    .search-bar { display:flex; justify-content:center; align-items:center; margin:10px auto; max-width:100%; width:100%; max-width:400px; box-sizing:border-box; gap:0; }
+    #search-input { width:400px; padding:10px; border-radius:10px 0 0 10px; font-size:16px; outline:none; }
+    @media (max-width:550px) { #search-input { max-width:200px; } }
+    #search-btn { padding:10px 15px; border-left:none; background-color:#041D35; color:#e3eaeb; font-size:16px; font-weight:600; cursor:pointer; border-radius:0 10px 10px 0; outline:none; }
+    #search-btn:hover { background-color:#155087; }
+
+    /* --- NEW: Grid layout for body parts --- */
+    /* Wrap grid container */
+    .row.new-flex-resp {
+      display: grid;
+      gap: 24px;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      justify-items: center;
+      align-items: start;
+      width: 100%;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    .Symptoms-img-in-div {
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      width: 100%;
+    }
+
+    /* Default button styling (will be overridden by breakpoints) */
+    .Symptoms-button {
+      border-radius: 10px;
+      border: 1px solid #00284d;
+      background: white;
+      padding: 0;
+      transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+      position: relative;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      align-items:center;
+      overflow:hidden;
+      box-sizing: border-box;
+    }
+
+    .Symptoms-button img {
+      border-radius: 20px;
+      object-fit: contain;
+      transition: transform 0.3s ease;
+    }
+
+    .body-part-name {
+      margin: 6px 0 12px 0;
+      font-weight: 700;
+      color: #00284d;
+    }
+
+    .Symptoms-button:hover {
+      transform: scale(1.03);
+      box-shadow: 0 8px 15px rgba(0,40,77,0.2);
+      background-color: #f8f9fa;
+    }
+
+    /* --- Desktop/Large screens: make each body part 425x425 --- */
+    @media (min-width: 1200px) {
+      .row.new-flex-resp {
+        grid-template-columns: repeat(auto-fit, minmax(425px, 1fr));
+      }
+      .Symptoms-button {
+        width: 425px;
+        height: 425px;
+      }
+      .Symptoms-button img {
+        width: 320px;
+        height: 320px;
+      }
+      
+      
+    }
+
+    /* --- Medium & small screens: 2 items per row --- */
+    @media (max-width: 1199px) {
+      /* Ensure exactly two columns on medium and smaller screens */
+      .row.new-flex-resp {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .Symptoms-button {
+        /* Keep some padding/gap and maintain square aspect */
+        width: calc(100% - 40px); /* leave space for grid gap */
+        max-width: 420px;
+        aspect-ratio: 1 / 1;
+      }
+      .Symptoms-button img {
+        width: 60%;
+        height: 60%;
+      }
+    }
+
+    /* For very small phones, slightly reduce sizes for fit */
+    @media (max-width: 480px) {
+      .row.new-flex-resp {
+        gap: 12px;
+      }
+      .Symptoms-button {
+        width: calc(100% - 30px);
+        max-width: 260px;
+        aspect-ratio: 1 / 1;
+      }
+      .Symptoms-button img {
+        width: 56%;
+        height: 56%;
+      }
+      #Symptoms-heading { font-size: 28px; }
+    }
+
+    /* === Specific adjustments for 360px and 320px screens to make the two boxes a bit larger/roomier === */
+    @media (max-width: 360px) {
+     
+     .row.new-flex-resp {
+        gap: 12px;
+      }
+      .Symptoms-button {
+        width: calc(100% - 30px);
+        max-width: 260px;
+        aspect-ratio: 1 / 1;
+      }
+      .Symptoms-button img {
+        width: 56%;
+        height: 56%;
+      }
+      #Symptoms-heading { font-size: 28px; }
+}
+
+
+
+
+      
+
+    /* Info box + cards styling kept as before */
+    .info-box {
+      border: none !important;
+      background-color: #edf1f5;
+      color: #1d1d1d;
+      text-align: center;
+      width: 70%;
+      height: 36px;
+      font-weight: bold;
+      border-radius: 15px;
+      width:500px;
+      transition: transform 0.3s ease;
+    }
+
+    @media (max-width: 360px) {
+      .Symptoms-button img { width: 76%; height: 76%; }
+
+      .info-box { font-size:12px; padding:8px 12px; }
+    }
+    /* Body part name chhota sirf 320px aur neeche ke liye */
+@media (max-width: 320px) {
+  .body-part-name {
+    font-size: 12px; /* chhoti writing */
+    margin-top: 4px;
+  }
+}
+#selected-title {
+  text-align: center;
+  font-size: 22px;
+  font-weight: bold;
+  color: #003366;
+  margin-bottom: 20px;
+}
+/* 768px aur upar ke liye: har row mein 4 body parts */
+@media (min-width: 768px) {
+  .row.new-flex-resp {
+    grid-template-columns: repeat(4, 1fr);
+  }
+  .Symptoms-button {
+    width: 100%;
+    aspect-ratio: 1 / 1; /* square boxes */
+    max-width: 260px;    /* thoda control rakho */
+  }
+  .Symptoms-button img {
+    width: 60%;
+    height: 60%;
+  }
+}
+/* 1440px aur us se upar ke liye: thodi length kam */
+@media (min-width: 1440px) {
+  .Symptoms-button {
+    width: 340px;   /* pehle 425px tha, ab thoda chhota */
+    height: 340px;
+  }
+  .Symptoms-button img {
+    width: 250px;
+    height: 250px;
+  }
+}
+
+
+    .info-box:hover { transform: scale(1.05); }
+
+    /* Treatment / medicine card styles - make responsive improvements */
+    .treatment-section { background-color:#f8faff; padding:50px 20px; font-family:'Arial',sans-serif; }
+    .treatment-title { text-align:center; font-weight:bold; font-size:36px; color:#003366; margin-bottom:40px; text-transform:uppercase; letter-spacing:2px; }
+    .treatment-grid { display:grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap:30px; max-width:1200px; margin:0 auto; }
+    .treatment-card { background-color:#C2E7E0; border-radius:15px; box-shadow:0 4px 6px rgba(0,0,0,0.1); padding:30px; transition:transform .3s, box-shadow .3s; border:2px solid #00284d; }
+    .treatment-card:hover { transform: translateY(-10px); box-shadow:0 8px 15px rgba(27,40,58,0.2); }
+    .card-title { font-weight:bold; font-size:24px; color:#003366; margin-bottom:15px; text-align:center; }
+    .card-description { font-size:16px; color:#003366; margin-bottom:20px; text-align:center; }
+    .card-list { list-style-type:none; padding:0; margin:0; }
+    .card-list li { font-size:16px; margin:10px 0; color:#003366; padding-left:15px; position:relative; }
+    .card-list li:before { content: "✔"; position:absolute; left:0; color:#003366; font-weight:bold; }
+
+    #medicine-section { background-color:#f8f9fa; border-radius:15px; padding:30px; }
+    #medicine-heading { color:#00284d; font-size:2.5rem; text-transform:uppercase; text-shadow:1px 1px 5px rgba(0,0,0,0.1); margin-bottom:40px; }
+    .medicine-card { transition:transform .3s, box-shadow .3s; border-radius:15px; border:2px solid #00284d; }
+    .medicine-card:hover { transform: scale(1.05); box-shadow:0 10px 25px rgba(0,0,0,0.2); }
+    .medicine-card .card-header { font-size:1.2rem; padding:15px; text-transform:capitalize; border-radius:15px 15px 0 0; text-align:center; background-color:#00284d; color:#fff; }
+    .medicine-card .card-body { padding:20px; }
+    .medicine-card .card-text { font-size:14px; margin-bottom:15px; color:#00284d; }
+    .medicine-card .card-body p:last-child { font-weight:bold; color:#020F27; }
+
+    @media (max-width:460px) { 
+      #medicine-heading { font-size:24px; }
+      .treatment-title { font-size:28px; }
+      .treatment-card { padding:18px; }
+      .card-title { font-size:20px; }
+      .card-list li { font-size:14px; }
+    }
+    .issue-heading {
+  color: #003366;     /* text ka color */
+  font-size: 20px;    /* thoda bara size */
+  margin-bottom: 16px; /* neeche gap */
+}
+
+
+    .team-item img { position:relative; top:0; transition:.5s; }
+    .team-item:hover img { top:-30px; }
+    .team-item .team-text { position:relative; height:100px; transition:.5s; }
+    .team-item:hover .team-text { margin-top:-60px; height:160px; }
+    .team-item .team-text .team-social { opacity:0; transition:.5s; }
+    .team-item:hover .team-text .team-social { opacity:1; }
+    .team-item .team-social .btn { display:inline-flex; color:var(--primary); background:#FFFFFF; border-radius:40px; }
+    .team-item .team-social .btn:hover { color:#FFFFFF; background:var(--primary); }
+
+    .symptom-heading { color:#041D35; }
+    .recommended-doctor-heading { color:#041D35; }
+
+    /* small helper to ensure images don't overflow */
+    img.img-fluid { max-width: 100%; height: auto; }
+
+    .select-body-part-heading {
+  font-weight: 600;
+  color: #041D35;
+  font-size: 1.5rem;
+}
+
+  </style>
+</head>
+<body>
+
+  <nav class="navbar navbar-expand-lg">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">
+      <span class="vibeGuard">V</span><span>ibeGuard</span>
+    </a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarNav"
+      aria-controls="navbarNav"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon" style="color: #fff"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+
+        <li class="nav-item">
+          <a class="nav-link " href="/">Home</a>
+        </li>
+
+          <li class="nav-item">
+            <a class="nav-link" href="/tracking/dashboard">User Dashboard</a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link active" href="/symptomschecker/read">SymptomChecker</a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" href="/about-Us">About Us</a>
+          </li>
+
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  <div class="Symptoms">
+    <div class="symptoms-heading-div">
+      <h1 id="Symptoms-heading">Symptoms</h1>
+      <div class="search-bar">
+        <input type="text" placeholder="Search for body parts..." id="search-input">
+        <button id="search-btn">Search</button>
+      </div>
+       <!-- New Heading -->
+      <h3 class="select-body-part-heading mt-4 text-center">Select Body Part</h3>
+    </div>
+  </div>
+
+  <div class="container mt-5">
+    <!-- Body Parts Section -->
+    <div class="Symptoms-body">
+      <div class="symptoms-images-main">
+        <div class="container">
+          <!-- NOTE: replaced .row with our grid-enabled container .row.new-flex-resp -->
+          <div class="row text-center new-flex-resp">
+            <% if (bodyParts.length > 0) { %>
+              <% bodyParts.forEach(part => { %>
+                <div class="col-12 col-sm-6 col-md-4 col-lg-3 Symptoms-img-in-div mt-4">
+                  <button class="btn Symptoms-button body-part-item" data-id="<%= part._id %>" data-name="<%= part.name %>" data-image="<%= part.image %>">
+                    <img src="<%= part.image || '/images/default.png' %>" alt="<%= part.name %>" class="img-fluid">
+                    <p class="body-part-name" id="symptom-name-hover"><%= part.name %></p>
+                  </button>
+                </div>
+              <% }); %>
+            <% } else { %>
+              <div class="col-12">
+                <p>No body parts available</p>
+              </div>
+            <% } %>
+          </div> <!-- end grid -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Selected area, treatment, medicine, doctors (unchanged) -->
+    <div id="selected-area" class="container mt-4" style="display: none;">
+      <div class="row hellooo p-3 d-flex flex-column justify-content-center align-items-center">
+        <div class="col-md-6 text-center">
+          <img id="selected-image" src="" alt="Selected" class="img-fluid" style="max-height:280px; width:280px; border-radius: 10px;">
+          <p id="selected-title" class="mt-2"></p>
+        </div>
+        <div class="col-md-12 symptoms-types">
+          <h2 class="text-center symptom-heading fs-2 fw-bold pb-3">Select Your Symptom</h2>
+<p class="text-center fs-5 fw-bold issue-heading">
+  Choose the issue that best matches your condition:
+</p>
+          <div class="col-md-12 d-flex flex-row flex-wrap justify-content-center" id="symptoms-container">
+            <!-- Symptoms will be dynamically added here -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="treatment-section" id="treatment-section" style="display: none;">
+      <h1 class="treatment-title">Symptom Details</h1>
+      <div class="treatment-grid">
+        <div class="treatment-card">
+          <h2 class="card-title">Overview</h2>
+          <p id="overview" class="card-description"></p>
+        </div>
+        <div class="treatment-card">
+          <h2 class="card-title">Possible Causes</h2>
+          <ul id="possibleCauses" class="card-list"></ul>
+        </div>
+        <div class="treatment-card">
+          <h2 class="card-title">Precautions</h2>
+          <ul id="precautions" class="card-list"></ul>
+        </div>
+        <div class="treatment-card">
+          <h2 class="card-title">Remedies</h2>
+          <ul id="remedies" class="card-list"></ul>
+        </div>
+        <div class="treatment-card" id="fact-section" style="display: none;">
+          <h2 class="card-title">Fact</h2>
+          <ul id="fact" class="card-list"></ul>
+        </div>
+        <div class="treatment-card">
+          <h2 class="card-title">Lifestyle Tips</h2>
+          <ul id="lifestyleTips" class="card-list"></ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="container my-5 py-5" id="medicine-section" style="display: none;">
+      <h1 class="text-center fw-bold mb-5" id="medicine-heading">Medicine Recommendations</h1>
+      <div class="row g-4" id="medicine-row"></div>
+    </div>
+
+    <div class="container-xxl py-5" id="doctor-section" style="display: block;">
+      <div class="container">
+        <div class="text-center recommended-doctor-heading mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
+          <h1>Recommended Doctors</h1>
+          <a href="/doctor-list" class="custom-btn">Go to Doctors List</a>
+        </div>
+        <div class="row g-4" id="doctor-row"></div>
+      </div>
+    </div>
+
+    <style>
+      .custom-btn { display:inline-block; background-color:#00284d; color:white; padding:14px 28px; font-size:1.1rem; border-radius:8px; text-decoration:none; transition:background-color .3s, transform .2s; box-shadow:0 4px 15px rgba(0,40,77,0.3); }
+      .custom-btn:hover { background-color:#001f3a; transform:translateY(-2px); color:#fff; }
+    </style>
+
+  </div> <!-- end main container -->
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // 1. Handling body part selection
+      document.querySelectorAll('.body-part-item').forEach(button => {
+          button.addEventListener('click', async function () {
+              const bodyPartId = this.dataset.id;
+              const bodyPartName = this.dataset.name;
+              const bodyPartImage = this.dataset.image;
+
+              // Update the selected area with the body part's details
+              updateSelectedBodyPart(bodyPartName, bodyPartImage);
+
+              // Fetch symptoms for the selected body part
+              await fetchSymptomsForBodyPart(bodyPartId);
+              await fetchDoctorsForBodyPart(bodyPartId);
+          });
+      });
+
+      // 2. Handling symptom selection
+      async function fetchSymptomsForBodyPart(bodyPartId) {
+          try {
+              const response = await fetch(`/symptomschecker/read/${bodyPartId}`);
+              if (!response.ok) throw new Error('Failed to fetch symptoms');
+
+              const symptoms = await response.json();
+              const symptomsContainer = document.getElementById('symptoms-container');
+              symptomsContainer.innerHTML = '';
+
+              if (symptoms.length === 0) {
+                  symptomsContainer.innerHTML = '<p>No symptoms found for this body part.</p>';
+                  return;
+              }
+
+              symptoms.forEach(symptom => {
+                  const infoBox = createSymptomButton(symptom);
+                  symptomsContainer.appendChild(infoBox);
+              });
+          } catch (error) {
+              console.error('Error fetching symptoms:', error);
+          }
+      }
+
+      function createSymptomButton(symptom) {
+          const infoBox = document.createElement('button');
+          infoBox.className = 'info-box m-4 border';
+          infoBox.textContent = symptom.name;
+          infoBox.style.backgroundColor = '#041D35';
+          infoBox.style.color = 'white';
+
+          infoBox.addEventListener('click', async function () {
+              // Clicking a symptom should show Symptom Details (treatment-section).
+              // We fetch symptom details and show the treatment section and scroll to it.
+              await fetchSymptomDetails(symptom._id);
+              // Save selection (async but no UI changes)
+              await saveSymptomSelection(symptom._id, symptom.body_part_id?._id || symptom.body_part_id);
+          });
+
+          return infoBox;
+      }
+
+      async function saveSymptomSelection(symptomId, bodyPartId) {
+        try {
+          const response = await fetch('/symptomschecker/symptom/select', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            credentials: 'include',
+            body: JSON.stringify({ symptomId, bodyPartId })
+          });
+          const result = await response.json();
+          console.log(result.message);
+        } catch (error) {
+          console.error('Error saving symptom selection:', error);
+        }
+      }
+
+      async function fetchSymptomDetails(symptomId) {
+          try {
+              const detailsResponse = await fetch(`/symptomschecker/symptom/${symptomId}/details`);
+              if (!detailsResponse.ok) throw new Error('Failed to fetch symptom details');
+
+              const symptomDetails = await detailsResponse.json();
+              updateSymptomDetails(symptomDetails);
+
+              // Show symptom details and scroll to it
+              document.getElementById('treatment-section').style.display = 'block';
+              document.getElementById('treatment-section').scrollIntoView({ behavior: 'smooth' });
+
+              // fetch medicines but DO NOT auto-scroll to medicine section (user request)
+              // medicines will still populate the Medicines section, but the UI stays on treatment-section
+              fetchMedicinesForSymptom(symptomId).catch(err => console.error(err));
+          } catch (error) {
+              console.error('Error fetching symptom details:', error);
+          }
+      }
+
+      function updateSymptomDetails(symptomDetails) {
+          document.getElementById('overview').textContent = symptomDetails.overview || '';
+          document.getElementById('possibleCauses').innerHTML = (symptomDetails.possibleCauses || []).map(cause => `<li>${cause}</li>`).join('');
+          document.getElementById('precautions').innerHTML = (symptomDetails.precautions || []).map(precaution => `<li>${precaution}</li>`).join('');
+          document.getElementById('remedies').innerHTML = (symptomDetails.remedies || []).map(remedy => `<li>${remedy}</li>`).join('');
+          document.getElementById('lifestyleTips').innerHTML = (symptomDetails.lifestyleTips || []).map(tip => `<li>${tip}</li>`).join('');
+
+          const factSection = document.getElementById('fact-section');
+          if (symptomDetails.fact && symptomDetails.fact.length > 0) {
+              factSection.style.display = 'block';
+              document.getElementById('fact').innerHTML = symptomDetails.fact.map(fact => `<li>${fact}</li>`).join('');
+          } else {
+              factSection.style.display = 'none';
+          }
+      }
+
+      async function fetchMedicinesForSymptom(symptomId) {
+          try {
+              const medicinesResponse = await fetch(`/symptomschecker/medicine/read/${symptomId}`);
+              if (!medicinesResponse.ok) throw new Error('Failed to fetch medicines');
+
+              const medicines = await medicinesResponse.json();
+              const medicineRow = document.getElementById('medicine-row');
+              medicineRow.innerHTML = '';
+
+              if (medicines.length === 0) {
+                  medicineRow.innerHTML = '<p>No medicines available for this symptom.</p>';
+                  // still ensure medicine-section stays hidden if no medicines
+                  document.getElementById('medicine-section').style.display = 'none';
+                  return;
+              }
+
+              medicines.forEach(medicine => {
+                  const medicineCard = createMedicineCard(medicine);
+                  medicineRow.appendChild(medicineCard);
+              });
+
+              // Show medicine section but DO NOT scroll into view (so user remains on Symptom Details)
+              document.getElementById('medicine-section').style.display = 'block';
+              // IMPORTANT: removed medicine-section.scrollIntoView() so it won't steal the viewport
+          } catch (error) {
+              console.error('Error fetching medicines:', error);
+          }
+      }
+
+      function createMedicineCard(medicine) {
+          const medicineCard = document.createElement('div');
+          medicineCard.className = 'col-12 col-sm-6 col-lg-3';
+          medicineCard.innerHTML = `
+              <div class="card shadow-lg h-100 text-center medicine-card">
+                  <div class="card-header text-white fw-bold">
+                      ${medicine.name}
+                  </div>
+                  <div class="card-body">
+                      <p class="card-text">${medicine.description}</p>
+                      <p><b>Recommended Dose:</b> ${medicine.dose}</p>
+                  </div>
+              </div>
+          `;
+          return medicineCard;
+      }
+
+      async function fetchDoctorsForBodyPart(bodyPartId) {
+          try {
+              const doctorsResponse = await fetch(`/symptomschecker/doctor/read/${bodyPartId}`);
+              if (!doctorsResponse.ok) throw new Error('Failed to fetch doctors');
+
+              const doctors = await doctorsResponse.json();
+              const doctorSection = document.getElementById('doctor-section');
+              const doctorRow = document.querySelector('#doctor-section .row');
+              doctorRow.innerHTML = '';
+
+              if (doctors.length === 0) {
+                  doctorRow.innerHTML = '<p>No doctors found for this Body Part.</p>';
+                  return;
+              }
+
+              doctorSection.style.display = 'block';
+              doctorSection.scrollIntoView({ behavior: 'smooth' });
+
+              doctors.forEach(doctor => {
+                  const doctorCard = createDoctorCard(doctor);
+                  doctorRow.appendChild(doctorCard);
+              });
+          } catch (error) {
+              console.error('Error fetching doctors:', error);
+          }
+      }
+
+      function createDoctorCard(doctor) {
+          const doctorCard = document.createElement('div');
+          doctorCard.className = 'col-lg-3 col-md-6';
+          doctorCard.innerHTML = `
+              <div class="team-item position-relative rounded overflow-hidden">
+                  <div class="overflow-hidden">
+                      <img class="img-fluid" src="${doctor.image || '/images/default.png'}" alt="${doctor.name}">
+                  </div>
+                  <div class="team-text bg-light text-center p-4">
+                      <h5 style="color:black">${doctor.name}</h5>
+                      <p class="text-primary">${doctor.department}</p>
+                      <div class="team-social text-center">
+                          <a class="btn fw-bold" style="color:black" href="/doctor-appointment/${doctor._id}">Book Appointment</a>
+                      </div>
+                  </div>
+              </div>
+          `;
+          return doctorCard;
+      }
+
+      function updateSelectedBodyPart(bodyPartName, bodyPartImage) {
+          document.getElementById('selected-image').src = bodyPartImage || '/images/default.png';
+          document.getElementById('selected-title').textContent = bodyPartName;
+          document.getElementById('selected-area').style.display = 'block';
+          document.getElementById('selected-area').scrollIntoView({ behavior: 'smooth' });
+      }
+    });
+
+    // Search functionality
+    document.addEventListener("DOMContentLoaded", () => {
+      const searchInput = document.getElementById("search-input");
+      const bodyPartItems = document.querySelectorAll(".body-part-item");
+
+      searchInput.addEventListener("input", () => {
+        const query = searchInput.value.trim().toLowerCase();
+
+        bodyPartItems.forEach(item => {
+          const name = item.querySelector(".body-part-name").textContent.toLowerCase();
+
+          if (name.includes(query)) {
+            item.closest(".Symptoms-img-in-div").style.display = "flex";
+          } else {
+            item.closest(".Symptoms-img-in-div").style.display = "none";
+          }
+        });
+      });
+    });
+  </script>
+
+  <!-- Bootstrap JS Bundle (with Popper) -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

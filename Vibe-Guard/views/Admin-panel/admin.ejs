@@ -1,0 +1,55 @@
+<main class="col-md-9 ms-sm-auto col-lg-10 px-4 custom-left">
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h2">Welcome to Vibe Guard Admin Panel</h1>
+
+        <button class="btn btn-danger" id="logout-button" onclick="window.location.href='/login/logout'">
+            Logout
+        </button>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="alert alert-info" role="alert">
+                <h4 class="alert-heading h4-home">Welcome, <%= username %>!</h4>
+                <p class="p-home">Today is <strong id="current-date"></strong></p>
+                <hr>
+                <p class="mb-0 p-home">You can manage products, categories, and more from the sidebar.</p>
+            </div>
+        </div>
+    </div>
+</main>
+
+
+
+<%- contentFor("Home-style")%>
+<style>
+    /* .custom-left {
+        margin-left: 20px !important;
+    } */
+    .h4-home{
+        font-weight: bold;
+        color: #041D35;
+    }
+    .p-home{
+        color: #063560;
+    }
+
+    .custom-left {
+    margin-left: 20px !important;
+    position: relative; /* Added to make sure the logout button is positioned correctly */
+    }
+
+    #logout-button {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+    }
+</style>
+
+<%- contentFor("Home-Script")%>
+<script>
+    const currentDate = new Date().toLocaleDateString();
+    document.getElementById("current-date").textContent = currentDate;
+</script>
+
+

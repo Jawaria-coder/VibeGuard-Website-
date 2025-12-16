@@ -1,0 +1,81 @@
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-8">
+      <h1 class="text-center mb-4">Add Doctor</h1>
+      <form action="/doctor/create" method="POST" enctype="multipart/form-data">
+
+        <!-- Name -->
+        <div class="mb-4">
+          <label for="name" class="form-label">Doctor Name</label>
+          <input type="text" name="name" class="form-control" required>
+        </div>
+
+        <!-- City -->
+        <div class="mb-4">
+          <label for="city" class="form-label">City</label>
+          <input type="text" name="city" class="form-control" required>
+        </div>
+
+        <!-- Specialization -->
+        <div class="mb-4">
+          <label for="specialization" class="form-label">Specialization</label>
+          <input type="text" name="specialization" class="form-control" required>
+        </div>
+
+        <!-- Qualification -->
+        <div class="mb-4">
+          <label for="qualification" class="form-label">Qualification</label>
+          <input type="text" name="qualification" class="form-control">
+        </div>
+
+        <!-- Experience -->
+        <div class="mb-4">
+          <label for="experience" class="form-label">Experience (Years)</label>
+          <input type="number" name="experience" class="form-control">
+        </div>
+
+        <!-- Satisfaction Rate -->
+        <div class="mb-4">
+          <label for="satisfactionRate" class="form-label">Satisfaction Rate (%)</label>
+          <input type="number" name="satisfactionRate" class="form-control" min="0" max="100">
+        </div>
+
+        <!-- Average Time to Patients -->
+        <div class="mb-4">
+          <label for="avgTimeToPatients" class="form-label">Avg Time with Patients (minutes)</label>
+          <input type="number" name="avgTimeToPatients" class="form-control">
+        </div>
+
+        <!-- Wait Time -->
+        <div class="mb-4">
+          <label for="waitTime" class="form-label">Wait Time (minutes)</label>
+          <input type="number" name="waitTime" class="form-control">
+        </div>
+
+        <!-- Hospital Address -->
+        <div class="mb-4">
+          <label for="hospitalAddress" class="form-label">Hospital Address</label>
+          <input type="text" name="hospitalAddress" class="form-control">
+        </div>
+
+        <!-- Fee -->
+        <div class="mb-4">
+          <label for="fee" class="form-label">Consultation Fee (PKR)</label>
+          <input type="number" name="fee" class="form-control">
+        </div>
+
+        <!-- Contact -->
+<div class="mb-4">
+  <label for="contact" class="form-label">Contact No.</label>
+  <input type="tel" name="contact" class="form-control" pattern="[0-9]{10,15}" maxlength="15" inputmode="numeric" placeholder="Enter contact number">
+</div>
+
+
+        <!-- Submit Button -->
+        <div class="text-center">
+          <button type="submit" class="btn text-white mt-3" style="background-color:#004085;">Add Doctor</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

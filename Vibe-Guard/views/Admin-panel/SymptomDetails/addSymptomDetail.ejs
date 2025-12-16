@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Symptom Detail</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f4f7fc;
+        }
+        .form-container {
+            background: #fff;
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15); /* More shadow */
+        }
+        .form-container h1 {
+            font-size: 2rem;
+            color: #004085;
+            font-weight: bold;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+        .btn-primary {
+            background-color: #004085;
+            border-color: #004085;
+            width: 100%;
+            padding: 12px;
+            font-size: 1.1rem;
+        }
+        .btn-primary:hover {
+            background-color: #003366;
+            border-color: #003366;
+        }
+        .form-label {
+            font-weight: 500;
+            color: #333;
+        }
+        .form-control {
+            border-radius: 8px;
+            box-shadow: none;
+            height: 45px;
+            font-size: 1rem;
+            border: 1px solid #ccc; /* Light border for inputs */
+        }
+        .form-control:focus {
+            border-color: #004085; /* Highlight border on focus */
+            box-shadow: 0 0 10px rgba(0, 64, 133, 0.2); /* Focus shadow */
+        }
+        .form-select {
+            border-radius: 8px;
+            box-shadow: none;
+            height: 45px;
+            font-size: 1rem;
+            border: 1px solid #ccc; /* Light border for selects */
+        }
+        .form-select:focus {
+            border-color: #004085;
+            box-shadow: 0 0 10px rgba(0, 64, 133, 0.2); /* Focus shadow */
+        }
+        .invalid-feedback {
+            font-size: 0.9rem;
+            color: #e53e3e;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="form-container">
+            <h1 class="mb-4 text-center">Add Symptom Detail</h1>
+            <form action="/symptomDetails/create" method="POST" class="needs-validation" novalidate>
+                
+                <!-- Symptom Dropdown -->
+                <div class="mb-3">
+                    <label for="symptom_id" class="form-label">Select Symptom:</label>
+                    <select id="symptom_id" name="symptom_id" class="form-select" required>
+                        <% symptoms.forEach(symptom => { %>
+                            <option value="<%= symptom._id %>"><%= symptom.name %></option>
+                        <% }) %>
+                    </select>
+                    <div class="invalid-feedback">Please select a symptom.</div>
+                </div>
+        
+                <!-- Overview -->
+                <div class="mb-3">
+                    <label for="overview" class="form-label">Overview:</label>
+                    <textarea id="overview" name="overview" class="form-control" rows="3" required></textarea>
+                    <div class="invalid-feedback">Overview is required.</div>
+                </div>
+        
+                <!-- Possible Causes -->
+                <div class="mb-3">
+                    <label for="possibleCauses" class="form-label">Possible Causes:</label>
+                    <textarea id="possibleCauses" name="possibleCauses" class="form-control" rows="3" required></textarea>
+                    <div class="invalid-feedback">Possible causes are required.</div>
+                </div>
+        
+                <!-- Precautions -->
+                <div class="mb-3">
+                    <label for="precautions" class="form-label">Precautions:</label>
+                    <textarea id="precautions" name="precautions" class="form-control" rows="3" required></textarea>
+                    <div class="invalid-feedback">Precautions are required.</div>
+                </div>
+        
+                <!-- Remedies -->
+                <div class="mb-3">
+                    <label for="remedies" class="form-label">Remedies:</label>
+                    <textarea id="remedies" name="remedies" class="form-control" rows="3" required></textarea>
+                    <div class="invalid-feedback">Remedies are required.</div>
+                </div>
+        
+                <!-- Facts (Optional) -->
+                <div class="mb-3">
+                    <label for="fact" class="form-label">Fact (Optional):</label>
+                    <textarea id="fact" name="fact" class="form-control" rows="3"></textarea>
+                    <div class="invalid-feedback">Fact (optional) is required.</div>
+                </div>
+        
+                <!-- Lifestyle Tips -->
+                <div class="mb-3">
+                    <label for="lifestyleTips" class="form-label">Lifestyle Tips:</label>
+                    <textarea id="lifestyleTips" name="lifestyleTips" class="form-control" rows="3" required></textarea>
+                    <div class="invalid-feedback">Lifestyle tips are required.</div>
+                </div>
+        
+                <!-- Submit Button -->
+                <button type="submit" class="btn btn-primary w-100">Add</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

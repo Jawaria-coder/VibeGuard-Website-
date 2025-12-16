@@ -1,0 +1,82 @@
+
+
+<nav id="sidebar">
+   <div class="sidebar-header">
+    <h3><a href="/admin/home" class="dashboard-link">DASHBOARD</a></h3>
+</div>
+
+    <ul class="list-unstyled components">
+        <li class="active">
+            <a href="#bodyPartsSubmenu" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle fw-bold">Body Parts</a>
+            <ul class="collapse list-unstyled" id="bodyPartsSubmenu">
+                <li><a href="/bodyparts/add">Add</a></li>
+                <li><a href="/bodyparts/read">Read</a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="#symptomsSubmenu" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle fw-bold">Symptoms</a>
+            <ul class="collapse list-unstyled" id="symptomsSubmenu">
+                <li><a href="/symptoms/add">Add</a></li>
+                <li><a href="/symptoms/read">Read</a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="#detailsSubmenu" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle fw-bold">Condition Details</a>
+            <ul class="collapse list-unstyled" id="detailsSubmenu">
+                <li><a href="/symptomDetails/add">Add</a></li>
+                <li><a href="/symptomDetails/read">Read</a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="#medicinesSubmenu" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle fw-bold">Medicines</a>
+            <ul class="collapse list-unstyled" id="medicinesSubmenu">
+                <li><a href="/medicine/add">Add</a></li>
+                <li><a href="/medicine/read">Read</a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="#doctorsSubmenu" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle fw-bold">Doctors</a>
+            <ul class="collapse list-unstyled" id="doctorsSubmenu">
+                <li><a href="/doctor/add">Add</a></li>
+                <li><a href="/doctor/read">Read</a></li>
+            </ul>
+        </li>
+        
+        <li>
+                <a href="/admin/users" class="fw-bold">Users</a>
+        </li>
+        <li>
+            <a href="/feedback/all-feedbacks" class="fw-bold">Feedback</a>
+        </li>
+        <li>
+            <a href="/reports/report/download" class="fw-bold">Download Report</a>
+        </li>
+    </ul>
+</nav>
+
+ <style>
+    .sidebar-header {
+    padding: 20px;
+    background: #063560;
+    text-align: center;
+}
+
+.sidebar-header h3 {
+    margin: 0;
+    font-size: 1.5em;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.sidebar-header .dashboard-link {
+    color: white;
+    text-decoration: none;
+    transition: color 0.3s, letter-spacing 0.3s;
+}
+
+.sidebar-header .dashboard-link:hover {
+    color: #498ed4;
+    letter-spacing: 2px;
+}
+
+ </style>

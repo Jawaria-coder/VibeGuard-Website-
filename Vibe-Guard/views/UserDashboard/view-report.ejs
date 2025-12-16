@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Symptom Report</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+  <style>
+    .sidebar h5 {
+        margin-top: 0;
+    }
+
+    .user-info p {
+        margin: 0 0 10px;
+    }
+
+    .user-info p strong {
+        font-weight: bold;
+    }
+
+    .outer-img-div {
+        width: 250px;
+        height: 250px;
+        border: 6px solid #00284D;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-left: 19px;
+    }
+
+    #userImage {
+        border-radius: 50%;
+        width: 220px;
+        height: 220px;
+        object-fit: cover;
+    }
+
+    .user-info {
+        margin-top: 20px;
+    }
+
+    .user-info-p {
+        color: white;
+        font-size: 18px;
+    }
+
+    .user-info-p i {
+        margin-right: 10px;
+    }
+
+    @media (max-width: 1430px) {
+        #sidebar {
+            min-height: 100vh;
+        }
+    }
+
+    #sidebar {
+    min-width: 300px;
+    max-width: 450px;
+    background: #05152A;
+    color: white;
+    height: 100vh; /* Changed from min-height */
+    position: fixed;
+    top: 0;
+    left: 0;
+    overflow-y: auto; /* Enable vertical scroll */
+    z-index: 999;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+    #sidebar .sidebar-header {
+        width: 350px;
+        padding: 20px;
+        background: #05152A;
+        text-align: center;
+        font-size: 1.2em;
+        font-weight: bold;
+    }
+
+    #sidebar ul.components {
+        border-top: 1px solid #063560;
+        margin-top: 20px;
+        border-bottom: 1px solid #063560;
+        width: 300px;
+        padding: 10px 0;
+    }
+
+    #sidebar ul li a {
+        text-decoration: none;
+        padding: 10px;
+        font-size: 1.1em;
+        display: block;
+        color: white;
+    }
+
+    #sidebar ul i {
+        margin-right: 10px;
+        margin-left: 10px;
+    }
+
+    #sidebar ul li a:hover {
+        color: white;
+        background: #063560;
+    }
+
+    #sidebar ul li.active > a {
+        background: #041D35;
+        color: white;
+    }
+
+    #sidebar ul li ul a {
+        font-size: 0.9em !important;
+        padding-left: 30px !important;
+        background-color: #063560;
+    }
+
+    #sidebar ul li ul a:hover {
+        border-top: 2px solid #0788FF;
+        border-bottom: 2px solid #0788FF;
+        background-color: #041D35;
+        color: white;
+    }
+
+    .content-wrapper {
+        margin-left: 360px;
+        padding: 40px;
+    }
+
+    /* Back button (hidden by default) */
+.back-btn {
+  position: fixed;
+  top: 15px;
+  left: 15px;
+  z-index: 1001;
+  display: none;
+}
+
+/* Small screens: hide sidebar, show back button */
+@media (max-width: 768px) {
+  #sidebar {
+    display: none;
+  }
+
+  .content-wrapper {
+    margin-left: 0; 
+    padding-top: 70px; /* push content down below the button */
+  }
+
+  .back-btn {
+    display: inline-block;
+  }
+}
+
+  </style>
+</head>
+
+<body>
+  <a href="/tracking/dashboard" class="btn btn-sm btn-dark back-btn">
+    <i class="fas fa-arrow-left"></i> Back to Dashboard
+  </a>
+
+  <!-- Sidebar -->
+  <nav id="sidebar">
+    <div class="sidebar-header">
+        <h3>Profile</h3>
+    </div>
+
+    <div class="user-info">
+        <div class="outer-img-div">
+            <img id="userImage" src="" alt="User Image" class="img-fluid">
+        </div>
+        <p class="user-info-p"><i class="fas fa-user"></i> <strong>Name:</strong> <span id="firstName">Loading...</span></p>
+        <p class="user-info-p"><i class="fas fa-calendar-alt"></i> <strong>Age:</strong> <span id="age">Loading...</span></p>
+        <p class="user-info-p"><i class="fas fa-genderless"></i> <strong>Gender:</strong> <span id="gender">Loading...</span></p>
+    </div>
+
+    <ul class="list-unstyled components">
+        <li class="active">
+            <a href="#settingsSubmenu" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                <i class="fas fa-cogs"></i> Settings
+            </a>
+            <ul class="collapse list-unstyled" id="settingsSubmenu">
+                <li><a href="/symptomschecker/read"><i class="fas fa-stethoscope"></i> Symptom Checker</a></li>
+                <li><a href="/post/posts"><i class="fas fa-book-open"></i> User Stories</a></li>
+                <li><a href="/doctor-list"><i class="fas fa-sign-out-alt"></i> Find Doctors</a></li>
+                <li><a href="/feedback/feedback"><i class="fas fa-comments"></i> Feedback</a></li>
+                <li><a href="/user-report/symptom/report"><i class="fas fa-notes-medical"></i> Symptom Report</a></li>
+                <li><a href="/login/logout"><i class="fas fa-sign-out-alt"></i> Log Out</a></li>
+            </ul>
+        </li>
+    </ul>
+  </nav>
+
+  <!-- Main Content -->
+  <div class="content-wrapper">
+    <div class="d-flex justify-content-end mb-3">
+  <a href="/user-report/download/pdf" class="btn btn-outline-primary">
+    <i class="fas fa-file-download me-1"></i> Download PDF
+  </a>
+</div>
+
+    <h2 class="mb-4 text-center"><span  style="color: #05152a; font-weight: bold;">Your Symptom Report</span></h2>
+
+    <!-- Sample Symptom Report Cards -->
+<div class="container mt-4">
+  <% if (report.length > 0) { %>
+    <% report.forEach(entry => { %>
+      <div class="card shadow-sm border border-secondary mb-4">
+        <!-- Custom header background to differentiate -->
+        <div class="card-header" style="background-color: #05152a;; color: white;">
+          <h5 class="mb-0 d-flex align-items-center">
+            <i class="fas fa-notes-medical me-2 text-primary"></i>
+            <strong><%= entry.bodyPart %></strong>
+          </h5>
+        </div>
+
+        <!-- List items stay clean -->
+        <ul class="list-group list-group-flush" >
+  <% entry.symptoms.forEach(symptom => { %>
+    <li class="list-group-item d-flex justify-content-between align-items-center" >
+      <div>
+        <i class="fas fa-exclamation-circle text-danger me-2"></i>
+        <%= symptom.name %>
+      </div>
+      <small class="text-muted">
+        <i class="fas fa-clock me-1"></i><%= symptom.date %>
+      </small>
+    </li>
+  <% }) %>
+</ul>
+      </div>
+    <% }) %>
+  <% } else { %>
+    <div class="alert alert-info text-center shadow-sm">No symptoms selected yet.</div>
+  <% } %>
+</div>
+
+
+</div>
+
+</div>
+
+
+
+
+    <!-- Replace these cards with your actual JS-rendered data -->
+  </div>
+
+  <!-- Script to Load User Info -->
+   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <script>
+    $.get('/tracking/api/getUserData', function (userInfo) {
+      console.log(userInfo);
+
+      if (userInfo?.info) {
+        $('#firstName').text(userInfo.info.firstName || 'N/A');
+        $('#age').text(userInfo.info.age || 'N/A');
+        $('#gender').text(userInfo.info.gender || 'N/A');
+      } else if (userInfo) {
+        $('#firstName').text(userInfo.firstName || 'N/A');
+        $('#age').text(userInfo.age || 'N/A');
+        $('#gender').text(userInfo.gender || 'N/A');
+        const imageUrl = `/images/${userInfo.image}`;
+        $('#userImage').attr('src', imageUrl);
+      } else {
+        $('#firstName').text('N/A');
+        $('#age').text('N/A');
+        $('#gender').text('N/A');
+      }
+    }).fail(function () {
+      console.error('Failed to fetch user data.');
+    });
+
+
+    
+    </script>
+
+  
+  <!-- Add this at the bottom, before closing </body> -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

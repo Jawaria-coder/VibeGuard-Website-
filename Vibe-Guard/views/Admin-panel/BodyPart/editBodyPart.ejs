@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Body Part</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f4f7fc;
+        }
+        .form-container {
+            background: #fff;
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15); /* More shadow */
+        }
+        .form-container h1 {
+            font-size: 2rem;
+            color: #004085;
+            font-weight: bold;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+        .btn-primary {
+            background-color: #004085;
+            border-color: #004085;
+            width: 100%;
+            padding: 12px;
+            font-size: 1.1rem;
+        }
+        .btn-primary:hover {
+            background-color: #003366;
+            border-color: #003366;
+        }
+        .form-label {
+            font-weight: 500;
+            color: #333;
+        }
+        .form-control {
+            border-radius: 8px;
+            box-shadow: none;
+            height: 45px;
+            font-size: 1rem;
+            border: 1px solid #ccc; /* Light border for inputs */
+        }
+        .form-control:focus {
+            border-color: #004085; /* Highlight border on focus */
+            box-shadow: 0 0 10px rgba(0, 64, 133, 0.2); /* Focus shadow */
+        }
+        .img-thumbnail {
+            border-radius: 8px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8 col-lg-6">
+                <div class="form-container">
+                    <form action="/bodyparts/update/<%= bodyPart._id %>" method="post" enctype="multipart/form-data">
+                        <h1>Edit Body Part</h1>
+
+                        <!-- Name input -->
+                        <div class="mb-4">
+                            <label for="name" class="form-label">Body Part Name</label>
+                            <input type="text" class="form-control" id="name" name="name" value="<%= bodyPart.name %>" required>
+                        </div>
+
+                        <!-- Current image display and new image upload -->
+                        <div class="mb-4">
+                            <label for="image" class="form-label">Current Image</label>
+                            <div>
+                                <!-- Display current body part image -->
+                                <img src="<%= bodyPart.image %>" alt="<%= bodyPart.name %>" class="img-thumbnail" style="max-width: 200px;">
+                            </div>
+                            <label for="image" class="form-label mt-2">Upload New Image (Optional)</label>
+                            <input type="file" class="form-control" id="image" name="image">
+                        </div>
+
+                        <!-- Submit button -->
+                        <div class="d-flex justify-content-center">
+                            <button type="submit" class="btn btn-primary">Update</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

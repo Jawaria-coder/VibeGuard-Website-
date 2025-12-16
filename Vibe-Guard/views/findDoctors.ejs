@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <title>Find Doctors</title>
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Font Awesome CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="homecss.css">
+  <link rel="stylesheet" href="theme.css">
+  <link rel="stylesheet" href="style.css">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.carousel.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.theme.default.min.css">
+  
+
+  <style>
+    /* General page styling */
+/* body {
+  font-family: Arial, sans-serif;
+  background-color: #fefefe;
+  color: rgb(16, 16, 16);
+  margin: 0;
+  padding: 20px;
+  text-align: center;
+}
+
+
+.navbar {
+      background-color: #041D35;
+      padding: 10px 20px;
+    } */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #fefefe;
+  color: rgb(16, 16, 16);
+  margin: 0;
+  padding: 20px 20px 20px 20px; /* keep left/right padding */
+  text-align: center;
+}
+
+/* Navbar */
+.navbar {
+  background-color: #041D35;
+  padding: 10px 20px;
+  width: 100%;       /* full width */
+  margin: 0;         /* remove margin */
+  position: fixed;   /* fixed at top */
+  top: 0;
+  left: 0;
+  z-index: 999;      /* ensure it stays on top */
+}
+
+/* To prevent body content hiding behind navbar */
+body {
+  padding-top: 60px; /* adjust this based on navbar height */
+}
+
+
+    .navbar-brand {
+      font-weight: bold;
+      font-size: 24px;
+      color: white;
+    }
+
+    .navbar-brand .vibeGuard {
+      color: #3399ff;
+      font-size: 30px;
+    }
+
+    .navbar-toggler {
+      border-color: white;
+    }
+
+    .navbar-toggler-icon {
+      background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3e%3cpath stroke='white' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+    }
+
+    .navbar-nav .nav-link {
+      color: #ffffff !important;
+      font-weight: 500;
+      padding: 8px 15px;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    .navbar-nav .nav-link:hover {
+      color: #3399ff !important;
+      background-color: rgba(255, 255, 255, 0.05);
+      border-radius: 8px;
+    }
+
+    .navbar-nav .nav-link.active {
+      color: #3399ff !important;
+      font-weight: bold;
+    }
+
+.logo {
+    width: 45%; /* Adjust logo size relative to the square */
+    height: auto;
+    padding-left: 11%;
+  }
+        /* End */
+
+h1 {
+  margin-top: 30px;
+  margin-bottom: 20px;
+}
+
+/* Search bar */
+.search-wrapper {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+    margin-bottom: 30px;
+  }
+
+  #searchForm {
+    display: flex;
+    align-items: center;
+    border: 2px solid #ddd;
+    border-radius: 30px;
+    padding: 8px 16px;
+    background-color: white;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  }
+
+  #locationInput {
+    border: none;
+    outline: none;
+    padding: 8px;
+    font-size: 16px;
+    width: 250px;
+  }
+
+  .search-icon {
+    color: #041D35;
+    font-size: 20px;
+    cursor: pointer;
+    margin-left: 10px;
+  }
+
+  .search-icon:hover {
+    color: #0056b3;
+  }
+/* Doctors cards */
+.cards-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+
+.doctor-card {
+  background: rgb(200, 200, 201);
+  color: black;
+  padding: 15px;
+  border-radius: 15px;
+  border: 1px solid rgb(51, 51, 52);
+  box-shadow: 4px 4px 12px rgba(0, 0, 0, 0.3);
+  width: 320px;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 600 px;
+}
+
+
+.card-footer {
+  padding: 2px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  font-size: 14px;
+  gap: 2px;
+}
+
+.message-button1 {
+  width: 280px;
+  height: 50px;
+  background: #15385e;
+  color: rgb(246, 243, 243);
+  border: none;
+  cursor: pointer;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  margin-bottom: 10px;
+}
+.message-button1:hover {
+  text-decoration: none !important;
+  color: inherit !important;
+}
+
+.pagination-link {
+    display: inline-block;
+    margin: 0 5px;
+    padding: 6px 12px;
+    color: #007BFF;
+    text-decoration: none;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+  }
+
+  .pagination-link.active {
+    font-weight: bold;
+    background-color: #007BFF;
+    color: white;
+    pointer-events: none;
+  }
+
+  .pagination-link:hover {
+    background-color: #f1f1f1;
+  }
+
+  @media (max-width: 425px) {
+    .doctor-card {
+      padding: 10px;
+    }
+
+    .doctor-card h3 {
+      font-size: 16px;
+    }
+
+    .doctor-card p {
+      font-size: 13px;
+    }
+
+    .message-button1 {
+      padding: 6px 10px;
+      font-size: 12px;
+      flex: 1; /* makes buttons stretch evenly */
+      justify-content: center;
+    }
+
+    .message-button1 i {
+      font-size: 14px;
+    }
+  }
+
+  </style>
+</head>
+<body>
+
+
+  <nav class="navbar navbar-expand-lg">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">
+      <span class="vibeGuard">V</span><span>ibeGuard</span>
+    </a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarNav"
+      aria-controls="navbarNav"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon" style="color: #fff"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+
+        <li class="nav-item">
+          <a class="nav-link " href="/">Home</a>
+        </li>
+
+          <li class="nav-item">
+            <a class="nav-link" href="/tracking/dashboard">User Dashboard</a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link active" href="/symptomschecker/read">SymptomChecker</a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" href="/about-Us">About Us</a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" href="/login/logout">Logout</a>
+          </li>
+
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  <h1>Explore Doctors Near You</h1>
+
+<div class="search-wrapper">
+  <form id="searchForm">
+    <input type="text" id="locationInput" list="addressList" placeholder="Enter location" />
+    <datalist id="addressList"></datalist>
+    <i class="fas fa-search search-icon" onclick="document.getElementById('searchForm').requestSubmit()"></i>
+  </form>
+</div>
+
+
+
+
+<div id="doctors-container" class="cards-container">
+  <% doctors.forEach(doc => { 
+    const rawNumber = doc.contact || '';
+    const whatsappNumber = '92' + rawNumber.replace(/[^0-9]/g, '').slice(1); 
+  %>
+    <div class="doctor-card">
+      
+      <div class="card-content">
+        <h3><%= doc.name %></h3>
+        <p><strong>Specialization:</strong> <%= doc.specialization || 'N/A' %></p>
+        <p><strong>Qualification:</strong> <%= doc.qualification || 'N/A' %></p>
+        <p><strong>Experience:</strong> <%= doc.experience ? doc.experience + ' years' : 'N/A' %></p>
+        <p><strong>Patient Satisfaction:</strong> <%= doc.satisfactionRate ? doc.satisfactionRate + '%' : 'N/A' %></p>
+        <p><strong>Average Time to Patients:</strong> <%= doc.avgTimeToPatients ? doc.avgTimeToPatients + ' mins' : 'N/A' %></p>
+        <p><strong>Wait Time:</strong> <%= doc.waitTime ? doc.waitTime + ' mins' : 'N/A' %></p>
+        <p><strong>City:</strong> <%= doc.city || 'N/A' %></p>
+        <p><strong>Hospital Address:</strong> <%= doc.hospitalAddress || 'N/A' %></p>
+        <p><strong>Consultation Fee:</strong> <%= doc.fee ? 'PKR ' + doc.fee : 'N/A' %></p>
+        <p><strong>Contact:</strong> <%= doc.contact || 'N/A' %></p>
+      </div>
+
+      <div class="card-footer">
+        <button class="message-button1" onclick="openWhatsApp('<%= whatsappNumber %>')">
+          <i class="fab fa-whatsapp" style="color: #07BF3E;font-size: large; padding-right: 10px;"></i> WhatsApp
+        </button>
+
+        <a href="tel:<%= rawNumber.replace(/[^0-9]/g, '') %>" class="message-button1">
+          <i class="fas fa-phone" style="font-size: medium; padding-right: 10px;"></i> Call
+        </a>
+      </div>
+
+    </div>
+  <% }); %>
+</div>
+<div class="pagination-container" style="margin-top: 20px; margin-bottom: 20px;">
+  <% if (totalPages > 1) { %>
+    <% if (currentPage > 1) { %>
+      <a href="?page=<%= currentPage - 1 %>" class="pagination-link">Previous</a>
+    <% } %>
+
+    <% for (let i = 1; i <= totalPages; i++) { %>
+      <% if (i === currentPage) { %>
+        <span class="pagination-link active"><%= i %></span>
+      <% } else { %>
+        <a href="?page=<%= i %>" class="pagination-link"><%= i %></a>
+      <% } %>
+    <% } %>
+
+    <% if (currentPage < totalPages) { %>
+      <a href="?page=<%= currentPage + 1 %>" class="pagination-link">Next</a>
+    <% } %>
+  <% } %>
+</div>
+
+
+
+
+
+    <!-- footer section -->
+<section class="info_section layout_padding2" style="background-color: #0d1a2d;">
+  <div class="container">
+    <div class="row gy-4">
+
+      <!-- Contact -->
+      <div class="col-md-6 col-lg-3 info_col">
+        <div class="info_contact">
+          <h4 class="text-white mb-3">Contact</h4>
+          <div class="contact_link_box d-flex flex-column gap-2">
+            <div>
+              <i class="fa fa-map-marker" aria-hidden="true"></i>
+              <span class="ms-2">Based in Pakistan</span>
+            </div>
+            <div>
+              <i class="fa fa-phone" aria-hidden="true"></i>
+              <span class="ms-2">Support available online</span>
+            </div>
+            <a href="mailto:info@vibeguard.com">
+              <i class="fa fa-envelope" aria-hidden="true"></i>
+              <span class="ms-2">vibeguard7@gmail.com</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- About -->
+      <div class="col-md-6 col-lg-3 info_col">
+        <div class="info_detail">
+          <h4 class="text-white mb-3">About VibeGuard</h4>
+          <p style="color: white;">
+            Your smart health & mental wellness companion. Helping you track, relax, and grow, all in one space.
+          </p>
+        </div>
+      </div>
+
+      <!-- Quick Links -->
+      <div class="col-md-6 col-lg-2 info_col">
+        <div class="info_link_box">
+          <h4 class="text-white mb-3">Quick Links</h4>
+          <div class="info_links d-flex flex-column gap-2">
+            <a href="/">Home</a>
+            <a href="/symptomschecker/read">Symptom Checker</a>
+            <a href="/doctor-list">Find Doctors Near You</a>
+            <a href="/about-Us">About Us</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Social -->
+      <div class="col-md-6 col-lg-4 info_col">
+        <h4 class="text-white mb-3">Stay Connected</h4>
+        <p style="color: white;">Follow us on social media for updates and motivation!</p>
+        
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- Footer Bottom -->
+<section class="footer_section" style="background-color: #0a1627; padding: 15px 0;">
+  <i class="fab fa-twitter text-white fs-5 mx-2"></i>
+      <i class="fab fa-instagram text-white fs-5 mx-2"></i>
+      <i class="fab fa-linkedin text-white fs-5 mx-2"></i>
+  <div class="container text-center">
+    <p class="text-white m-0">
+      &copy; <span id="displayYear"></span> VibeGuard. All Rights Reserved.
+    </p>
+  </div>
+</section>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+    const addresses = [
+    "F-11, Islamabad",
+    "I-14/4, Islamabad",
+    "Satellite Town, Sargodha",
+    "F-6, Islamabad",
+    "G-9, Islamabad",
+    "G-8 Markaz, Islamabad",
+    "DHA Phase 2, Islamabad",
+    "PWD, Rawalpindi",
+    "Maulana Fazl-e-Haq Road, Islamabad",
+    "F-11, Islamabad",
+    "12-K Markaz Rd, G-8, Islamabad",
+    "Sector G, Islamabad",
+    "G-10 Markaz, Islamabad",
+    "F-8, Islamabad",
+    "G-8 Markaz, Islamabad",
+    "E-9/1, Islamabad",
+    "Main Margalla Rd, E-9/1, Islamabad",
+    "F-10/3 Markaz, Islamabad"
+  ];
+
+  const addressList = document.getElementById('addressList');
+addresses.forEach(address => {
+  const option = document.createElement('option');
+  option.value = address;
+  addressList.appendChild(option);
+});
+
+  const searchForm = document.getElementById('searchForm');
+  const locationInput = document.getElementById('locationInput');
+  const doctorsContainer = document.getElementById('doctors-container');
+
+  searchForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const location = locationInput.value;
+
+    try {
+      const response = await fetch(`/doctor-list/search?location=${encodeURIComponent(location)}`);
+      const data = await response.json();
+
+      doctorsContainer.innerHTML = '';
+
+      if (data.length === 0) {
+        doctorsContainer.innerHTML = '<p>No doctors found for this location.</p>';
+        return;
+      }
+
+ data.forEach(doc => {
+  const rawNumber = doc.contact || '';
+  const whatsappNumber = '92' + rawNumber.replace(/[^0-9]/g, '').slice(1);
+
+  doctorsContainer.innerHTML += `
+    <div class="doctor-card">
+      <div class="card-footer">
+        <h3>${doc.name}</h3>
+        <p><strong>Specialization:</strong> ${doc.specialization || 'N/A'}</p>
+        <p><strong>Qualification:</strong> ${doc.qualification || 'N/A'}</p>
+        <p><strong>Experience:</strong> ${doc.experience || 'N/A'} years</p>
+        <p><strong>Patient Satisfaction:</strong> ${doc.satisfactionRate || 'N/A'}%</p>
+        <p><strong>City:</strong> ${doc.city || 'N/A'}</p>
+        <p><strong>Hospital Address:</strong> ${doc.hospitalAddress || 'N/A'}</p>
+        <p><strong>Consultation Fee:</strong> PKR ${doc.fee || 'N/A'}</p>
+        <p><strong>Contact:</strong> ${doc.contact || 'N/A'}</p>
+
+        <div class="contact-buttons" style="display: flex; gap: 10px; flex-wrap: wrap; margin-top: 10px;">
+          <button class="message-button1" onclick="openWhatsApp('${whatsappNumber}')" style="display: flex; align-items: center; gap: 6px;">
+            <i class="fab fa-whatsapp" style="color: #07BF3E"></i>
+            WhatsApp
+          </button>
+
+          <a href="tel:${rawNumber.replace(/[^0-9]/g, '')}" class="message-button1" style="display: flex; align-items: center; gap: 6px;">
+            <i class="fas fa-phone"></i>
+            Call
+          </a>
+        </div>
+      </div>
+    </div>
+  `;
+});
+
+    } catch (error) {
+      console.error('Search failed:', error);
+      doctorsContainer.innerHTML = '<p>Something went wrong.</p>';
+    }
+  });
+
+  
+  
+  
+
+   function openWhatsApp(contactNumber) {
+    const phone = contactNumber.replace(/\D/g, '');
+    const url = `https://wa.me/${phone}`;
+    window.open(url, '_blank');
+   }
+</script>
+<input type="text" id="locationInput" list="addressList" placeholder="Enter location" />
+
+<datalist id="addressList"></datalist>
+
+
+
+</body>
+</html>

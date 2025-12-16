@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Profile</title>
+
+  <!-- Bootstrap + FontAwesome -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+
+  <style>
+    body {
+      background: #f7f9fc;
+      font-family: 'Segoe UI', sans-serif;
+      height: 100%;
+    }
+
+    .container-fluid,
+.row {
+  min-height: 100vh;
+}
+
+    #sidebar {
+      background-color: #041D35;
+      color: white;
+      padding: 30px 20px;
+      border-radius: 0 20px 20px 0;
+      overflow-y: auto;
+    }
+
+    .sidebar-header h3 {
+      color: white;
+      text-align: center;
+    }
+
+    .user-info {
+      margin-top: 30px;
+      text-align: center;
+    }
+
+    .outer-img-div img {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid white;
+    }
+
+    .user-info-p {
+      font-size: 14px;
+      color: #dcdcdc;
+    }
+
+    .components {
+      margin-top: 30px;
+      padding-left: 0;
+    }
+
+    .components li {
+      list-style: none;
+      margin-bottom: 10px;
+    }
+
+    .components a {
+      color: #ccc;
+      text-decoration: none;
+      display: block;
+      padding: 8px 12px;
+      border-radius: 6px;
+    }
+
+    .components a:hover {
+      background-color: rgba(255,255,255,0.1);
+      color: white;
+    }
+
+    .profile-container {
+      padding: 50px;
+    }
+
+    .save-btn {
+      background-color: #041D35;
+      color: white;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    /* Back button styling */
+.back-btn {
+  position: fixed;
+  top: 15px;
+  left: 15px;
+  z-index: 2000;
+  display: none; /* hidden by default */
+}
+
+/* Small screens: hide sidebar, show back button */
+@media (max-width: 767.98px) {
+  #sidebar {
+    display: none !important;
+  }
+
+  .profile-container {
+    margin-left: 0 !important;
+    padding-top: 70px; /* leave space for the button */
+  }
+
+  .back-btn {
+    display: inline-block !important;
+  }
+}
+
+  </style>
+</head>
+<body>
+  <a href="/tracking/dashboard" class="btn btn-dark back-btn d-md-none">
+    <i class="fas fa-arrow-left"></i> Back to Dashboard
+  </a>
+  <div class="container-fluid">
+    <div class="row">
+
+      <!-- Sidebar -->
+      <div class="col-md-3" id="sidebar">
+        <div class="sidebar-header">
+          <h3>Profile</h3>
+        </div>
+      
+        <div class="user-info">
+         <div class="outer-img-div">
+         <img src="/images/<%= info?.image || 'default.png' %>" />
+</div>
+
+
+<p class="user-info-p"><i class="fas fa-user"></i> <strong>Name:</strong> <%= info?.firstName || 'N/A' %></p>
+<p class="user-info-p"><i class="fas fa-calendar-alt"></i> <strong>Age:</strong> <%= info?.age || 'N/A' %></p>
+<p class="user-info-p"><i class="fas fa-genderless"></i> <strong>Gender:</strong> <%= info?.gender || 'N/A' %></p>
+
+
+
+</div>
+      
+        <ul class="components">
+         <li><a href="/"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="/symptomschecker/read"><i class="fas fa-stethoscope"></i> Symptom Checker</a></li>
+                <li><a href="/tracking/dashboard"><i class="fas fa-columns"></i>User Dashboard</a></li>
+                <li><a href="/login/profile"><i class="fas fa-user"></i> Profile</a></li>
+                <li><a href="/feedback/feedback"><i class="fas fa-comments"></i> Feedback</a></li>
+                <li><a href="/login/logout"><i class="fas fa-sign-out-alt"></i> Log Out</a></li>
+        </ul>
+      </div>
+
+      <!-- Main Profile Content -->
+<div class="col-md-9 bg-white profile-container">
+  <h2 class="fw-bold mb-4">Edit Profile</h2>
+  <% if (error) { %>
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+      <%= error %>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+  <% } %>
+
+  <% if (success) { %>
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+      <%= success %>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+  <% } %>
+<% if (!user) { %>
+  <div class="alert alert-danger">
+    User not found. Please <a href="/login/register">log in</a> again.
+  </div>
+<% } %>
+
+
+  <!-- ✅ Profile Update Form -->
+<!-- inside your input form -->
+<!-- ✅ PROFILE UPDATE FORM -->
+<form action="/login/profile/update" method="POST" enctype="multipart/form-data">
+  <div class="mb-3">
+    <label class="form-label">First Name</label>
+    <input type="text" name="firstName" class="form-control" value="<%= info?.firstName || '' %>">
+  </div>
+
+  <div class="mb-3">
+    <label class="form-label">Profile Image</label>
+    <input type="file" name="image" class="form-control">
+  </div>
+
+  <button type="submit" class="btn save-btn mt-3">Save Changes</button>
+</form>
+
+<!--  TOGGLE PASSWORD FORM -->
+<div class="mb-3 mt-4">
+  <button type="button" class="btn btn-outline-secondary" onclick="togglePassword()">Change Password</button>
+</div>
+
+<!-- PASSWORD UPDATE FORM (Separate!) -->
+<form id="passwordFields" class="hidden" action="/login/resetpassword" method="POST">
+  <input type="hidden" name="email" value="<%= user?.email %>">
+
+  <div class="mb-3">
+    <label class="form-label">Current Password</label>
+    <input type="password" name="currentPassword" class="form-control" required>
+  </div>
+
+  <div class="mb-3">
+    <label class="form-label">New Password</label>
+    <input type="password" name="newPassword" class="form-control" required>
+  </div>
+
+  <button type="submit" class="btn btn-warning">Update Password</button>
+</form>
+
+
+  <!-- Delete Form should be OUTSIDE the update form -->
+  <form id="deleteForm" action="/login/profile/delete" method="POST">
+    <button type="button" class="btn btn-danger mt-3" onclick="confirmDelete()">Delete Profile</button>
+  </form>
+</div>
+
+
+<script>
+  function togglePassword() {
+    document.getElementById('passwordFields').classList.toggle('hidden');
+  }
+
+  function confirmDelete() {
+    if (confirm("Are you sure you want to delete your profile? This action cannot be undone.")) {
+      document.getElementById("deleteForm").submit();
+    }
+  }
+</script>
+
+</body>
+</html>

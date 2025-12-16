@@ -1,0 +1,300 @@
+/* nav bar */
+/* Animation for navbar items */
+/* .navbar-nav .nav-item {
+    opacity: 0;
+    transform: translateY(-20px);
+    animation: slideIn 0.5s forwards;
+    animation-delay: 0.2s;
+  }
+  
+  .navbar-nav .nav-item:nth-child(1) {
+    animation-delay: 0.2s;
+  }
+  .navbar-nav .nav-item:nth-child(2) {
+    animation-delay: 0.3s;
+  }
+  .navbar-nav .nav-item:nth-child(3) {
+    animation-delay: 0.4s;
+  }
+  .navbar-nav .nav-item:nth-child(4) {
+    animation-delay: 0.5s;
+  }
+  .navbar-nav .nav-item:nth-child(5) {
+    animation-delay: 0.6s;
+  }
+  .navbar-nav .nav-item:nth-child(6) {
+    animation-delay: 0.7s;
+  }
+  
+ 
+  @keyframes slideIn {
+    0% {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+
+  .navbar {
+    transition: background-color 0.3s ease-in-out;
+  }
+  
+  .navbar.scrolled {
+    background-color: rgba(0, 0, 0, 0.8); /* Dark background when scrolled 
+  }
+  
+
+  .navbar-toggler-icon {
+    transition: transform 0.3s ease;
+  }
+  
+  .navbar-toggler-icon.collapsed {
+    transform: rotate(180deg); 
+  }
+
+.navbar-brand {
+    font-size: 30px;
+    font-weight: bold;
+    color: #0a2541; 
+    animation: fadeInLogo 1s ease-out, bounceIn 1s ease-out;
+    animation-delay: 0.2s;
+    animation-fill-mode: both; 
+  }
+  
+
+  @keyframes fadeInLogo {
+    0% {
+      opacity: 0;
+      transform: translateY(-30px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  
+  @keyframes bounceIn {
+    0% {
+      transform: scale(0.8);
+    }
+    50% {
+      transform: scale(1.1);
+    }
+    100% {
+      transform: scale(1);
+    }
+  } */
+  
+  /* background image  */
+  /* Animation for the entire hero section */
+.page-hero {
+    position: relative;
+    overflow: hidden;
+  }
+  
+  /* Hero section content animation */
+  .hero-section .container {
+    opacity: 0;
+    transform: translateY(30px); /* Start below the original position */
+    animation: fadeInUp 1s ease-out forwards; /* Animation for text and button */
+    animation-delay: 0.2s; /* Delay for a smooth effect */
+  }
+  
+  /* Define the fadeInUp animation */
+  @keyframes fadeInUp {
+    0% {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  /* Animation for the subhead and heading */
+  .hero-section .subhead {
+    opacity: 0;
+    transform: translateY(20px); /* Start a bit below */
+    animation: fadeInUp 0.8s ease-out forwards;
+    animation-delay: 0.4s; /* Delay for subhead */
+  }
+  
+  .hero-section h1 {
+    opacity: 0;
+    transform: translateY(20px); /* Start a bit below */
+    animation: fadeInUp 0.8s ease-out forwards;
+    animation-delay: 0.6s; /* Delay for heading */
+  }
+  
+  /* Button animation */
+  .hero-section .btn {
+    opacity: 0;
+    transform: scale(0.8);
+    animation: bounceIn 1s ease-out forwards;
+    animation-delay: 1s; /* Delay for button */
+  }
+  
+  @keyframes bounceIn {
+    0% {
+      opacity: 0;
+      transform: scale(0.8);
+    }
+    50% {
+      transform: scale(1.1);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+  /* Card service animation */
+.card-service {
+    opacity: 0;
+    transform: translateY(30px); /* Start from below */
+    animation: fadeInUp 1s ease-out forwards;
+  }
+  
+  /* Define the fadeInUp animation */
+  @keyframes fadeInUp {
+    0% {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  /* Staggered delay for each card service */
+  .card-service:nth-child(1) {
+    animation-delay: 0.3s;
+  }
+  
+  .card-service:nth-child(2) {
+    animation-delay: 0.4s;
+  }
+  
+  .card-service:nth-child(3) {
+    animation-delay: 0.5s;
+  }
+  
+  /* Optional: Add hover effect to cards */
+  .card-service:hover {
+    transform: translateY(-5px);
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  /* Optional: Add subtle shadow on hover */
+  .card-service:hover {
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Animation for the text section */
+.custom-section h1, 
+.custom-section p {
+  opacity: 0;
+  transform: translateY(20px); /* Start slightly below */
+  animation: fadeInUp 1s ease-out forwards;
+}
+
+/* Define the fadeInUp animation */
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Animation for the image section */
+.custom-section .col-lg-6 img {
+  opacity: 0;
+  transform: translateX(30px); /* Start from the right */
+  animation: fadeInRight 1s ease-out forwards;
+  animation-delay: 0.4s; /* Delay for the image */
+}
+
+/* Define the fadeInRight animation */
+@keyframes fadeInRight {
+  0% {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Optional: Hover effect for the button */
+.custom-section .btn {
+  transition: transform 0.3s ease-in-out;
+}
+
+.custom-section .btn:hover {
+  transform: translateY(-5px); /* Slight lift effect */
+}
+/* Animation for fading in and moving up */
+@keyframes fadeInUp {
+    0% {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  /* Apply the animation */
+  .card-doctor {
+    animation: fadeInUp 1s ease-out forwards;
+  }
+  
+  /* Add delay for each item */
+  .card-doctor:nth-child(1) {
+    animation-delay: 0.3s;
+  }
+  .card-doctor:nth-child(2) {
+    animation-delay: 0.4s;
+  }
+  .card-doctor:nth-child(3) {
+    animation-delay: 0.5s;
+  }
+  .card-doctor:nth-child(4) {
+    animation-delay: 0.6s;
+  }
+  
+
+/* Optional: Styling for the numbers and content */
+.single-fun .content {
+    text-align: center;
+  }
+  
+  .counter {
+    font-size: 30px;
+    font-weight: bold;
+    color: #2c3e50;
+    display: block;
+  }
+  
+  /* Add fade-in animation */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+ 

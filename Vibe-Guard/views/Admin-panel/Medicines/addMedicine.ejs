@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Add Medicine</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    /* Custom styling to match previous UI */
+    body {
+      background-color: #f8f9fa;
+      font-family: Arial, sans-serif;
+    }
+
+    .container {
+      max-width: 800px;
+      padding: 30px;
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 2.5rem;
+      color: #333;
+      margin-bottom: 30px;
+    }
+
+    .form-group label {
+      font-weight: 600;
+      color: #555;
+    }
+
+    .form-control {
+      border-radius: 8px;
+      box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .form-control:focus {
+      box-shadow: 0 0 10px rgba(0, 123, 255, 0.5);
+      border-color: #007bff;
+    }
+
+    .btn {
+      background-color: #007bff;
+      border: none;
+      border-radius: 8px;
+      padding: 10px 20px;
+      color: white;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .btn:hover {
+      background-color: #0056b3;
+    }
+
+    .btn-secondary {
+      background-color: #6c757d;
+      border: none;
+      border-radius: 8px;
+      padding: 10px 20px;
+      color: white;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .btn-secondary:hover {
+      background-color: #5a6268;
+    }
+
+    .medicine .form-control {
+      margin-bottom: 10px;
+    }
+
+    .medicine {
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container mt-5">
+    <h1 class="mb-4">Add Medicine for a Symptom</h1>
+    <form action="/medicine/create" method="POST">
+      <div class="form-group">
+        <label for="symptomId">Symptom</label>
+        <select id="symptomId" name="symptomId" class="form-control" required>
+          <!-- Dropdown for symptoms, populated from the backend -->
+          <% symptoms.forEach(symptom => { %>
+            <option value="<%= symptom._id %>"><%= symptom.name %></option>
+          <% }) %>
+        </select>
+      </div>
+
+      <div id="medicines-container">
+        <div class="medicine form-group">
+          <label for="medicine-name">Medicine Name</label>
+          <input type="text" name="medicine-name[]" class="form-control" placeholder="Medicine Name" required>
+
+          <label for="medicine-dose" class="mt-2">Medicine Dose</label>
+          <input type="text" name="medicine-dose[]" class="form-control" placeholder="Medicine Dose" required>
+
+          <label for="medicine-description" class="mt-2">Medicine Description</label>
+          <textarea name="medicine-description[]" class="form-control" placeholder="Medicine Description"></textarea>
+        </div>
+      </div>
+
+      <button type="button" id="add-medicine" class="btn btn-secondary mt-3">Add Another Medicine</button>
+      <button type="submit" class="btn  mt-3" style="background-color: #0056b3;">Save Medicines</button>
+    </form>
+  </div>
+
+  <!-- Bootstrap JS and jQuery (necessary for Bootstrap's JavaScript plugins) -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+  <script>
+    // Add functionality to add more medicine input fields dynamically
+    document.getElementById('add-medicine').addEventListener('click', () => {
+      const medicinesContainer = document.getElementById('medicines-container');
+      const newMedicineDiv = document.createElement('div');
+      newMedicineDiv.classList.add('medicine', 'form-group');
+
+      newMedicineDiv.innerHTML = `
+        <label for="medicine-name">Medicine Name</label>
+        <input type="text" name="medicine-name[]" class="form-control" placeholder="Medicine Name" required>
+
+        <label for="medicine-dose" class="mt-2">Medicine Dose</label>
+        <input type="text" name="medicine-dose[]" class="form-control" placeholder="Medicine Dose" required>
+
+        <label for="medicine-description" class="mt-2">Medicine Description</label>
+        <textarea name="medicine-description[]" class="form-control" placeholder="Medicine Description"></textarea>
+      `;
+
+      medicinesContainer.appendChild(newMedicineDiv);
+    });
+
+    // Before form submission, collect medicines data into a JSON format
+    document.querySelector('form').addEventListener('submit', function(event) {
+      const medicines = [];
+      const medicineNames = document.querySelectorAll('[name="medicine-name[]"]');
+      const medicineDoses = document.querySelectorAll('[name="medicine-dose[]"]');
+      const medicineDescriptions = document.querySelectorAll('[name="medicine-description[]"]');
+
+      for (let i = 0; i < medicineNames.length; i++) {
+        medicines.push({
+          name: medicineNames[i].value,
+          dose: medicineDoses[i].value,
+          description: medicineDescriptions[i].value
+        });
+      }
+
+      // Add medicines data as hidden input before form submission
+      const medicinesInput = document.createElement('input');
+      medicinesInput.type = 'hidden';
+      medicinesInput.name = 'medicines';
+      medicinesInput.value = JSON.stringify(medicines);
+      this.appendChild(medicinesInput);
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,414 @@
+/* Import Fonts */
+@import "https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700";
+
+/* General Styling */
+body {
+    font-family: 'Arial', sans-serif;
+    background: #fafafa;
+    margin: 0;
+    padding: 0;
+}
+
+p {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1em;
+    /* font-weight: bolder; */
+    line-height: 1.5em;
+    color: #2c2b2b;
+}
+
+a {
+    text-decoration: none !important;
+    color: white;
+    transition: background 0.3s, color 0.3s;
+}
+
+a:hover {
+    text-decoration: none !important;
+    color: #f1f1f1;
+}
+
+/* Navbar Styling */
+.navbar {
+    /* background: #041D35; */
+    color: #fffefe;
+    border: none;
+    border-radius: 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    /* position: fixed; */
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+}
+
+.navbar-nav .nav-link {
+    color: #6FCBC0;
+    /* font-weight: bold; */
+}
+
+/* Wrapper for Sidebar and Content */
+.wrapper {
+    display: flex;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* Sidebar Styling */
+#sidebar {
+    min-width: 250px;
+    max-width: 250px;
+    background: #041D35;
+    color: white;
+    height: 100vh; 
+    position: fixed;
+    top: 0;
+    left: 0;
+    overflow-y: auto;
+    transition: all 0.3s;
+    z-index: 999;
+}
+
+#sidebar .sidebar-header {
+    padding: 20px;
+    background: #063560;
+    text-align: center;
+    font-size: 1.2em;
+    font-weight: bold;
+    color: white;
+}
+
+#sidebar ul.components {
+    padding: 20px 0;
+    border-bottom: 1px solid #063560;
+}
+
+#sidebar ul p {
+    color: white;
+    padding: 10px;
+}
+
+#sidebar ul li a {
+    padding: 10px;
+    font-size: 1.1em;
+    display: block;
+    color: white;
+    transition: background 0.3s ease, color 0.3s ease;
+}
+
+#sidebar ul li a:hover {
+    color: white;
+    background: #0A4C8B; /* Slightly brighter than #063560 */
+}
+
+#sidebar ul li.active > a {
+    background: #041D35; 
+    color: white;
+}
+
+#sidebar ul li.active > a:hover {
+    background: #0A4C8B; 
+    color: white;
+}
+
+#sidebar ul li ul a {
+    font-size: 0.9em;
+    padding: 10px 30px;
+    background-color: #063560;
+    color: white;
+    transition: background 0.3s, border 0.3s;
+    border-radius: 4px;
+    margin: 5px 0;
+}
+
+#sidebar ul li ul a:hover {
+    background-color: #0A4C8B;
+    color: white;
+    border-top: 2px solid #0788FF; 
+    border-bottom: 2px solid #0788FF;
+}
+
+
+/* Content Area Styling */
+#content{
+    margin-left: 250px; 
+    padding: 10px 20px 20px; 
+    min-height: 100vh;
+    width: calc(100% - 250px);
+    overflow: auto;
+    transition: all 0s; 
+}
+
+
+/* Media Queries for Mobile */
+@media (max-width: 768px) {
+    #sidebar {
+        margin-left: -250px;
+    }
+
+    #sidebar.active {
+        margin-left: 0;
+    }
+
+    #content {
+        margin-left: 0;
+        width: 100%;
+    }
+
+    .navbar {
+        padding: 10px;
+    }
+}
+
+/* Form */
+form {
+    border: 2px solid #041D35; 
+    border-radius: 10px; 
+    padding: 20px; 
+}
+
+.custom-input {
+    border: 2px solid #041D35 !important; 
+    border-radius: 5px !important; 
+}
+
+.custom-label {
+    color: #041D35; 
+    font-weight: bold; 
+}
+.social-container {
+    text-align: right; /* Aligns the content to the right */
+    position: absolute; /* Positions the div */
+    right: 0; /* Pushes the div to the far right */
+    top: 10px; /* Adjusts vertical position */
+  }
+  
+  .social-mini-button a {
+    font-size: 18px; /* Icon size */
+    color: #555; /* Default color */
+    margin: 0 5px; /* Spacing between icons */
+    text-decoration: none; /* Removes underline */
+  }
+  
+  .social-mini-button a:hover {
+    color: #007BFF; /* Change color on hover */
+  }
+
+
+  /* funfacts */
+  #fun-facts {
+    position: relative;
+    background-image: url("/images/blockqoute-bg.jpg");
+    background-size: cover;
+    background-position: center;
+    padding: 60px 0;
+    color: #fff;
+    overflow: hidden; /* To ensure the overlay covers the section */
+}
+
+#fun-facts::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(52, 152, 219, 0.5); /* Bluish transparent overlay */
+    z-index: 1; /* Ensure the overlay stays below content */
+}
+
+.single-fun {
+    position: relative;
+    text-align: center;
+    margin-bottom: 30px;
+    transition: all 0.3s ease-in-out;
+    z-index: 2; /* Keep content above the overlay */
+}
+
+.single-fun:hover {
+    transform: scale(1.05); /* Scale up on hover */
+}
+
+.single-fun i {
+    font-size: 50px;
+    margin-bottom: 20px;
+    color: #f39c12; /* Gold color for icons */
+}
+
+.content .counter {
+    font-size: 40px;
+    font-weight: bold;
+    color: #fff;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.content p {
+    font-size: 16px;
+    color: #bbb;
+}
+
+/* Add animation when hovering over each item */
+.single-fun:hover i {
+    color: #3498db; /* Change icon color on hover */
+}
+
+#navbarSupport{
+    color: #032B67; /* Example color: tomato */
+   
+}
+
+/*color
+
+/* Change color of the phone and email icons */
+.mai-call, .mai-mail {
+    color: #032B67; /* Example color: tomato */
+  }
+  
+  /* Change the color of the text (phone number and email) */
+  a {
+    color: #032B67; /* Example color: green */
+    text-decoration: none; /* Remove underline */
+    transition: color 0.3s ease;
+  }
+  
+  a:hover {
+    color: #032B67 /* Change color on hover */
+  }
+  
+  /* For the icon color specifically */
+  .mai-call i, .mai-mail i {
+    color: #032B67 /* Icon color */
+  }
+  
+  .divider {
+    color:#032B67; /* Color of the divider */
+  }
+  
+.fab{
+    color: #032B67 ;  
+}
+.nav-link{
+    color: #032B67 ;  
+
+}
+.t{
+    color: #032B67 ; 
+}
+
+
+/* Custom section for the page */
+.custom-section {
+    padding-top: 50px;  /* Reduced top padding */
+    padding-bottom: 30px;  /* Reduced bottom padding */
+    height: auto;  /* Automatically adjusts height */
+  }
+  
+  /* Image container styling */
+  .custom-img-container {
+    max-height: 500px;  /* Limit the height of the image */
+    overflow: hidden;   /* Hide overflowed parts of the image */
+  }
+  
+  /* Column styling */
+  .col-lg-6 {
+    padding-right: 30px;
+    padding-left: 90px;
+  }
+  
+  /* Custom text styling */
+  .custom-text {
+    font-size: 16px;  /* Smaller font size for text */
+    line-height: 1.6; /* Line height for better readability */
+  }
+  
+  /* Custom heading styling */
+  .custom-section h1 {
+    font-size: 36px;  /* Smaller heading font size */
+    line-height: 1.2;  /* Line height adjustment */
+  }
+  
+  .card-service-wrapper {
+    position: relative;
+    z-index: 2;
+  }
+  
+  .card-service {
+    position: relative;
+    top: -11px;
+    left: 68px;
+    right: 0;
+    padding: 16px;
+  }
+  
+  .background {
+    width: 45px;
+    height: 44px;
+    background-color: #041D35; /* Blue background */
+    display: flex; /* Center the logo */
+    justify-content: center;
+    align-items: center;
+    border-radius: 111px; /* Optional: Add rounded corners */
+  }
+  
+  .logo {
+    width: 240%; /* Adjust logo size relative to the square */
+    height: auto;
+    padding-left: 11%;
+  }
+
+  /* USERSTORIES */
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    background-color: #ffffff;
+  }
+
+  
+  .create-post {
+    display: flex;
+    align-items: center;
+    padding: 16px;
+    border-bottom: 1px solid #e9ecef;
+  }
+  
+  .avatar img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 12px;
+  }
+  
+  .post-input {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ced4da;
+    border-radius: 20px;
+    outline: none;
+  }
+  
+  .post-button {
+    background-color: #120347;
+    color: white;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 20px;
+    margin-left: 10px;
+    cursor: pointer;
+  }
+  
+  .post-button:hover {
+    background-color: #0056b3;
+  }
+
+   @media (max-width: 768px) {
+  .dashboard-mobile {
+    position: absolute;
+    left: 10px;
+    top: 10px;
+    color: #032B67;
+    font-weight: bold;
+    font-size: 18px;
+  }
+}
+  

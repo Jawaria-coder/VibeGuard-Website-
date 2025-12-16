@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Doctor List</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+  <style>
+    .table th, .table td { vertical-align: middle; padding: 15px; }
+    .btn-edit { background-color: #007bff; color: white; }
+    .btn-edit:hover { background-color: #0056b3; transform: scale(1.1); }
+    .btn-delete { background-color: #dc3545; color: white; }
+    .btn-delete:hover { background-color: #c82333; transform: scale(1.1); }
+    .btn-add { background-color: #11345a; color: white; transition: all 0.3s ease; }
+    .btn-add:hover { background-color: #14426f; transform: scale(1.1); }
+    .table-dark th { background-color: #28666E; color: white; }
+    .table-hover tbody tr:hover { background-color: #f8f9fa; }
+    .table-striped tbody tr:nth-of-type(odd) { background-color: #f2f2f2; }
+    .btn-add {
+      padding: 10px;
+      font-size: 1.5rem;
+      border-radius: 50%;
+      width: 45px;
+      height: 45px;
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #004085;
+      color: white;
+      transition: all 0.3s ease;
+      margin-bottom: 20px;
+    }
+    .btn-add:hover {
+      background-color: #14426f;
+      color:white;
+      transform: scale(1.1);
+    }
+
+    .btn-custom {
+      padding: 10px;
+      font-size: 1.5rem;
+      border-radius: 50%;
+      width: 45px;
+      height: 45px;
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      transition: all 0.3s ease;
+      margin-right: 8px;
+    }
+    .btn-edit {
+      background-color: #007bff;
+      color: white;
+    }
+    .btn-edit:hover {
+      background-color: #0056b3;
+      
+    }
+    .btn-delete {
+      background-color: #dc3545;
+      color: white;
+    }
+    .btn-delete:hover {
+      background-color: #c82333;
+    }
+    
+  </style>
+</head>
+<body>
+  <div class="container mt-5">
+    <a href="/doctor/add" class="btn btn-add "><i class="bi bi-plus"></i></a>
+    <h1 class="text-center mb-4">Doctor List</h1>
+
+    <div class="table-wrapper">
+  <table class="table table-bordered table-hover table-striped text-center">
+    <thead class="table-dark">
+      <tr>
+        <th>Name</th>
+        <th>City</th>
+        <th>Specialization</th>
+        <th>Qualification</th>
+        <th>Experience (Years)</th>
+        <th>Satisfaction Rate (%)</th>
+        <th>Avg Time to Patients (min)</th>
+        <th>Wait Time (min)</th>
+        <th>Hospital Address</th>
+        <th>Fee (PKR)</th>
+        <th>Contact No.</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% doctors.forEach(doctor => { %>
+        <tr>
+          <td><%= doctor.name || 'N/A' %></td>
+          <td><%= doctor.city || 'N/A' %></td>
+          <td><%= doctor.specialization || 'N/A' %></td>
+          <td><%= doctor.qualification || 'N/A' %></td>
+          <td><%= doctor.experience ?? 'N/A' %></td>
+          <td><%= doctor.satisfactionRate ?? 'N/A' %></td>
+          <td><%= doctor.avgTimeToPatients ?? 'N/A' %></td>
+          <td><%= doctor.waitTime ?? 'N/A' %></td>
+          <td><%= doctor.hospitalAddress || 'N/A' %></td>
+          <td><%= doctor.fee ? 'PKR ' + doctor.fee : 'N/A' %></td>
+          <td><%= doctor.contact || 'N/A' %></td>
+          <td>
+            <div class="d-flex justify-content-center ">
+              <a href="/doctor/edit/<%= doctor._id %>" class="bbtn btn-edit btn-custom" title="Edit">
+                <i class="bi bi-pencil-fill"></i>
+              </a>
+              <button class="btn btn-delete btn-custom delete-btn" data-id="<%= doctor._id %>" data-name="<%= doctor.name %>" title="Delete">
+                <i class="bi bi-trash-fill"></i>
+              </button>
+            </div>
+          </td>
+        </tr>
+      <% }) %>
+    </tbody>
+  </table>
+</div>
+
+  </div>
+
+  <!-- Delete Modal -->
+  <div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <form method="POST" id="deleteForm">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="confirmDeleteModalLabel">Confirm Delete</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            Are you sure you want to delete <strong id="modalDoctorName"></strong>?
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+            <button type="submit" class="btn btn-danger">Yes, Delete</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const deleteModal = new bootstrap.Modal(document.getElementById('confirmDeleteModal'));
+      let deleteId = null;
+
+      document.querySelectorAll('.delete-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          deleteId = btn.dataset.id;
+          document.getElementById('modalDoctorName').textContent = btn.dataset.name || 'this doctor';
+          deleteModal.show();
+        });
+      });
+
+      document.getElementById('deleteForm').addEventListener('submit', (e) => {
+        e.preventDefault();
+        if (deleteId) {
+          window.location.href = `/doctor/delete/${deleteId}`;
+        }
+      });
+
+      const urlParams = new URLSearchParams(window.location.search);
+      if (urlParams.get('deleted') === 'true') {
+        alert('Doctor deleted successfully!');
+        history.replaceState(null, '', window.location.pathname);
+      }
+    });
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

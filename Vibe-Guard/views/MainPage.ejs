@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Home Page</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="homecss.css">
+  <link rel="stylesheet" href="theme.css">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="animations.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.carousel.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.theme.default.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.carousel.min.js"></script>
+    <script src="public/script.js"></script>
+    <!-- Include Animate.css for animations -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet">
+    <!-- Include WOW.js for triggering animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js"></script>
+<style>
+
+
+    .navbar {
+      background-color: #041D35;
+      padding: 10px 20px;
+    }
+
+    .navbar-brand {
+      font-weight: bold;
+      font-size: 24px;
+      color: white;
+    }
+
+    .navbar-brand .vibeGuard {
+      color: #3399ff;
+      font-size: 30px;
+    }
+
+    .navbar-toggler {
+      border-color: white;
+    }
+
+    .navbar-toggler-icon {
+      background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3e%3cpath stroke='white' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+    }
+
+    .navbar-nav .nav-link {
+      color: #ffffff !important;
+      font-weight: 500;
+      padding: 8px 15px;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    .navbar-nav .nav-link:hover {
+      color: #3399ff !important;
+      background-color: rgba(255, 255, 255, 0.05);
+      border-radius: 8px;
+    }
+
+    .navbar-nav .nav-link.active {
+      color: #3399ff !important;
+      font-weight: bold;
+    }
+
+.logo {
+    width: 45%; /* Adjust logo size relative to the square */
+    height: auto;
+    padding-left: 11%;
+  }
+
+  /* funfacts */
+  #fun-facts {
+    margin-top: 20px;
+    position: relative;
+    background-image: url("/images/blockqoute-bg.jpg");
+    background-size: cover;
+    background-position: center;
+    padding: 60px 0;
+    color: #fff;
+    overflow: hidden; /* To ensure the overlay covers the section */
+}
+
+#fun-facts::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(52, 152, 219, 0.5); /* Bluish transparent overlay */
+    z-index: 1; /* Ensure the overlay stays below content */
+}
+
+.single-fun {
+    position: relative;
+    text-align: center;
+    margin-bottom: 30px;
+    transition: all 0.3s ease-in-out;
+    z-index: 2; /* Keep content above the overlay */
+}
+
+.single-fun:hover {
+    transform: scale(1.05); /* Scale up on hover */
+}
+
+.single-fun i {
+    font-size: 50px;
+    margin-bottom: 20px;
+    color: #f39c12; /* Gold color for icons */
+}
+
+.content .counter {
+    font-size: 40px;
+    font-weight: bold;
+    color: #fff;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.content p {
+    font-size: 16px;
+    color: #bbb;
+}
+
+/* Add animation when hovering over each item */
+.single-fun:hover i {
+    color: #3498db; /* Change icon color on hover */
+}
+
+#navbarSupport{
+    color: #032B67; /* Example color: tomato */
+   
+}
+
+.why_container {
+  display: flex;
+  justify-content: space-around; /* Space between the circles */
+  align-items: flex-start; /* Align items to the top */
+  flex-wrap: nowrap; /* Prevent wrapping to the next line */
+  gap: 20px; /* Optional: Space between boxes */
+}
+
+.box {
+  text-align: center;
+  max-width: 250px; /* Adjust width to fit all boxes in a single line */
+}
+
+.img-boxs img {
+  width: 100px; /* Adjust size of the circle images */
+  height: 100px;
+  border-radius: 50%; /* Make the image circular */
+  object-fit: cover;
+  margin-bottom: 10px;
+}
+.custom-button {
+  color: white; /* Text color */
+  background: -webkit-linear-gradient(left,#003366,#004080,#0059b3
+  , #0073e6);
+  /* border: 3px solid #f8fafb;  */
+  padding: 10px 20px; /* Button padding */
+  border-radius: 8px; /* Rounded corners */
+  font-size: 16px; /* Font size for better readability */
+  text-decoration: none; /* Remove underline */
+  display: inline-block; /* Ensure proper alignment */
+  transition: all 0.3s ease; /* Smooth transition for hover effects */
+}
+
+.custom-button:hover {
+  background-color: #00aaff; /* Lighter blue on hover */
+  color: #05182d; 
+  /* border-color: #fff;  */
+  /* text-shadow: 0px 0px 5px #ffffff;  */
+}
+
+.wow {
+      animation-duration: 1.5s; 
+}
+
+@media (max-width: 500px) {
+  .custom-img-container {
+    width: 100%;
+  }
+
+  .doc-images {
+    width: 100%;
+    height: auto;
+    object-fit: contain; /* keeps full image without cutting */
+  }
+}
+
+@media (max-width: 543px) {
+  .why_container {
+    justify-content: center;   /* center children */
+  }
+
+  .why_container .box {
+    width: 100%;              /* take full width on small screens */
+    max-width: 400px;         /* optional: prevent being too wide */
+    margin: 10px auto;        /* auto margins will center the box */
+    text-align: center;       /* center content inside */
+  }
+}
+
+@media (max-width: 575px) {
+  .team_container .row {
+    justify-content: center; /* center all cols */
+  }
+
+  .team_container .col-lg-3,
+  .team_container .col-sm-6 {
+    display: flex;
+    justify-content: center; /* center the box inside */
+  }
+
+  .team_container .box {
+    max-width: 300px; /* optional: prevents full screen stretch */
+    text-align: center; /* center text inside */
+  }
+}
+
+@media (min-width: 576px) and (max-width: 991px) {
+  .team_container .row {
+    justify-content: center;  /* centers the two cols */
+  }
+
+  .team_container .col-sm-6 {
+    display: flex;
+    justify-content: center;  /* centers the box inside */
+  }
+
+  .team_container .box {
+    max-width: 300px;   /* keeps boxes from stretching too wide */
+    text-align: center; /* centers doctor names + text */
+  }
+}
+
+
+</style> 
+</head>
+<body>
+
+
+  <body>
+
+
+    <div class="hero_area">
+  
+      <div class="hero_bg_box">
+        <div class="bg_img_box">
+          <img src="images/hero-bg.png" alt="">
+        </div>
+    </div>
+  
+
+
+  <nav class="navbar navbar-expand-lg">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">
+      <span class="vibeGuard">V</span><span>ibeGuard</span>
+    </a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarNav"
+      aria-controls="navbarNav"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon" style="color: #fff"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+
+        <li class="nav-item">
+          <a class="nav-link active" href="/">Home</a>
+        </li>
+
+        <% if (!user) { %>
+          <!-- User NOT logged in -->
+          <li class="nav-item">
+            <a class="nav-link" href="/login/register">Register / Login</a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" href="/tracking/dashboard">User Dashboard</a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" href="/symptomschecker/read">SymptomChecker</a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" href="/about-Us">About Us</a>
+          </li>
+
+        <% } else { %>
+          <!-- User IS logged in -->
+
+          <% if (user && user.role === "admin") { %>
+            <li class="nav-item">
+              <a class="nav-link" href="/admin/home">Admin Dashboard</a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" href="/symptomschecker/read">SymptomChecker</a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" href="/about-Us">About Us</a>
+            </li>
+          <% } %>
+
+          <% if (user && user.role === "user") { %>
+
+            <li class="nav-item">
+            <a class="nav-link" href="/tracking/dashboard">User Dashboard</a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" href="/symptomschecker/read">SymptomChecker</a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" href="/about-Us">About Us</a>
+            </li>
+          <% } %>
+          <li class="nav-item">
+            <a class="nav-link" href="/login/logout">Logout</a>
+          </li>
+        <% } %>
+
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+
+
+
+    <!-- Navbar Section -->
+      <!-- slider section -->
+      <section class="slider_section ">
+        <div id="customCarousel1" class="carousel slide" data-ride="carousel">
+          <div class="carousel-inner">
+            <div class="carousel-item active">
+              <div class="container ">
+                <div class="row">
+                  <div class="col-md-6 ">
+                    <div class="detail-box">
+                      <h1 class="wow animate__backInLeft" data-wow-delay="0s" data-wow-duration="3s">
+                        VIBE GUARD <br>
+                      </h1>
+                      <h1 class="wow animate__backInLeft" data-wow-delay="0s" data-wow-duration="3s" style="color:aliceblue">
+                        Because You Matter
+                      </h1>
+                      <!-- <div class="p-2 rounded-3 px-4 py-2 wow animate__bounceIn" data-wow-delay="0s" data-wow-duration="2s">
+                        <a href="/symptomschecker/read" class="custom-button">
+                          Identify Your Symptoms
+                        </a>
+                      </div> -->
+                      <div class="p-2 rounded-3 px-4 py-2 wow animate__bounceIn" data-wow-delay="0s" data-wow-duration="2s">
+                      <% if (user) { %>
+                        <!-- If user is logged in -->
+                        <a href="/tracking/dashboard" class="custom-button">User Dashboard</a>
+                      <% } else { %>
+                        <!-- If user is not logged in -->
+                        <a href="/login/register" class="custom-button">Get Started</a>
+                      <% } %>
+                    </div>
+                      
+                      
+                    </div>
+                  </div>
+                  <div class="col-md-6 >
+                    <div class="img-box" >
+                      <img src="images/background-main-doc.png" alt="" class="wow animate__slideInRight" data-wow-delay="0s" data-wow-duration="3s"style="height:220%; width:120% ">
+                    </div>>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+  
+      </section>
+      <!-- end slider section -->
+    </div>
+  
+  
+    <!-- service section -->
+  
+    <section class="service_section layout_padding">
+      <div class="custom-section pb-0">
+        <div class="container">
+          <div class="row align-items-center justify-content-center">
+            <div class="col-lg-6 text-center">
+              <h1 class="fw-bold ">Welcome to VibeGuard</h1>
+              <p class="custom-text text-justify my-4  wow animate__fadeIn" data-wow-delay="0s" data-wow-duration="3s">
+                VibeGuard is an innovative online platform dedicated to providing comprehensive medical assistance 
+                to individuals seeking health-related guidance and support. Whether you're looking for advice on common symptoms, consultations
+                with certified medical professionals, or access to trusted healthcare resources, VibeGuard offers a user-friendly and secure 
+                environment. The website connects users with experienced doctors, allows for online consultations, and provides personalized
+                recommendations based on medical data and symptoms. VibeGuard is designed to make healthcare more accessible, efficient, 
+                and reliable, empowering individuals to take control of their health from the comfort of their homes. </p>
+              <a href="/symptomschecker/read" class="btn btn-primary wow animate__bounceInUp" data-wow-delay="0s" data-wow-duration="3s"
+              style="background-color: rgb(13, 33, 93);">Check Your Symptom</a>
+            </div>
+            <div class="col-lg-6 wow fadeInRight" data-wow-delay="400ms">
+              <div class="custom-img-container">
+                <img src="images\bg-doctor.png" alt="" class="wow animate__slideInRight doc-images" data-wow-delay="0s" data-wow-duration="3s">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div> 
+    </section>
+  
+    <!-- end service section -->
+  
+  
+    <!-- about section -->
+  
+    <section class="about_section layout_padding">
+      <div class="container">
+        <div class="heading_container heading_center">
+          <h2 class="wow animate__slideInDown" data-wow-delay="0s" data-wow-duration="3s" >
+            About <span>Us</span>
+          </h2>
+          <p style="color: rgb(215, 211, 211);">
+            VibeGuard: Empowering healthcare accessibility and excellence for everyone.
+          </p>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="img-box wow animate__slideInLeft" data-wow-delay="0s" data-wow-duration="3s"">
+              <img src="images/doctor123.png" alt="VibeGuard">
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="detail-box">
+              <h3 class="wow animate__zoomIn text-center " data-wow-delay="0s" data-wow-duration="3s">
+                We are VibeGuard
+              </h3>
+              <p class="text-center"style="color: rgb(215, 211, 211);">
+                VibeGuard is an innovative online platform dedicated to providing comprehensive medical assistance to individuals seeking health-related guidance and support. Whether you're looking for advice on common symptoms, consultations with certified medical professionals, or access to trusted healthcare resources, VibeGuard offers a user-friendly and secure environment.
+              </p>
+              <p class="text-center" style="color: rgb(215, 211, 211);">
+                The platform connects users with experienced doctors, enables online consultations, and delivers personalized recommendations based on medical data and symptoms. Designed to make healthcare more accessible, efficient, and reliable, VibeGuard empowers individuals to take control of their health from the comfort of their homes.
+              </p>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Start Fun-facts -->
+ <div id="fun-facts" class="fun-facts section overlay">
+  <div class="container">
+      <div class="row">
+          <div class="col-lg-3 col-md-6 col-12">
+              <div class="single-fun">
+                  <i class="icofont icofont-home"></i>
+                  <div class="content">
+                      <span class="counter fw-bold" style="color: rgb(6, 6, 6);" data-count="250">0</span>
+                      <p class="fw-bold" style="color: black;">Hospital Rooms</p>
+                  </div>
+              </div>
+          </div>
+          <div class="col-lg-3 col-md-6 col-12">
+              <div class="single-fun">
+                  <i class="icofont icofont-user-alt-3"></i>
+                  <div class="content">
+                      <span class="counter fw-bold" style="color: rgb(6, 6, 6);" data-count="100">0</span>
+                      <p class="fw-bold" style="color: black;">Specialist Doctors</p>
+                  </div>
+              </div>
+          </div>
+          <div class="col-lg-3 col-md-6 col-12">
+              <div class="single-fun">
+                  <i class="icofont-simple-smile"></i>
+                  <div class="content">
+                      <span class="counter fw-bold" style="color: rgb(6, 6, 6);" data-count="850">0</span>
+                      <p class="fw-bold" style="color: black;"  >Happy Patients</p>
+                  </div>
+              </div>
+          </div>
+          <div class="col-lg-3 col-md-6 col-12">
+              <div class="single-fun">
+                  <i class="icofont icofont-table"></i>
+                  <div class="content">
+                      <span class="counter fw-bold" style="color: rgb(6, 6, 6);" data-count="15">0</span>
+                      <p class="fw-bold" style="color: rgb(6, 6, 6);">Years of Experience</p>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
+<!--/ End Fun-facts -->
+  
+    <!-- end about section -->
+  
+    <!-- why section -->
+  
+ 
+    <section class="why_section layout_padding">
+      <div class="container">
+        <div class="heading_container heading_center">
+          <h2 class="wow animate__slideInLeft"  data-wow-delay="0s" data-wow-duration="3s">
+            Why Choose <span>Vibe Guard</span>
+          </h2>
+          <p>
+            Your trusted partner in personal health care, delivering comprehensive and user-friendly solutions to ensure your well-being.
+          </p>
+        </div>
+        <div class="why_container" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap;">
+          <div class="box">
+            <div class="img-box wow animate__zoomIn" data-wow-delay="0s" data-wow-duration="3s">
+              <img src="images/aa.jpg" alt="Expert Care" >
+            </div>
+            <div class="detail-boxs" >
+              <h5>Expert Medical Assistance</h5>
+              <p>
+                Get advice from certified professionals with years of experience. Our team ensures you receive accurate information and guidance tailored to your needs.
+              </p>
+            </div>
+          </div>
+          <div class="box">
+            <div class="img-box wow animate__zoomIn" data-wow-delay="0s" data-wow-duration="3s">
+              <img src="images/s11.png" alt="Secure Data" >
+            </div>
+            <div class="detail-boxs">
+              <h5>Secure Data Management</h5>
+              <p>
+                Your health data is securely stored with advanced encryption, ensuring your privacy while giving you easy access to your records anytime, anywhere.
+              </p>
+            </div>
+          </div>
+          <div class="box">
+            <div class="img-box wow animate__zoomIn" data-wow-delay="0s" data-wow-duration="3s">
+              <img src="images/ac.jpeg" alt="Easy Access" >
+            </div>
+            <div class="detail-box">
+              <h5>Instant Health Updates</h5>
+              <p>
+                Stay informed with instant updates about your health, appointments, and progress reports directly on your device. Health monitoring has never been this easy.
+              </p>
+            </div>
+          </div>
+          <div class="box">
+            <div class="img-box wow animate__zoomIn" data-wow-delay="0s" data-wow-duration="3s">
+              <img src="images/trust.png" alt="Happy Patients" >
+            </div>
+            <div class="detail-box">
+              <h5>Trusted by Thousands</h5>
+              <p>
+                Join thousands of satisfied users who trust us for personalized health care solutions that put their well-being first. Your health is our priority.
+              </p>
+            </div>
+          </div>
+        </div>
+        
+      </div>
+    </section>
+    
+  
+    <!-- end why section -->
+  
+    <!-- team section -->
+    <section class="team_section layout_padding" >
+      <div class="container-fluid">
+        <div class="heading_container heading_center">
+          <h2 class="">
+            Our <span> Team</span>
+          </h2>
+        </div>
+  
+        <div class="team_container" >
+          <div class="row">
+            <div class="col-lg-3 col-sm-6">
+              <div class="box wow animate__slideInRight" data-wow-delay="0s" data-wow-duration="3s">
+                <div class="img-box">
+                  <img src="/images/88e8a1037561bc460cb3482d.jpg" class="img1" alt="">
+                </div>
+                <div class="detail-box ms-4">
+                  <h5>
+                    Dr. Ziauddin Ahmed
+                  </h5>
+                  <p style="color: white;">
+                    Cardiology
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-3 col-sm-6">
+              <div class="box wow animate__slideInRight" data-wow-delay="0s" data-wow-duration="3s">
+                <div class="img-box">
+                  <img src="/images/doc2.jpeg" class="img1" alt="">
+                </div>
+                <div class="detail-box">
+                  <h5>
+                    Dr. Rauf Chaudhry
+                  </h5>
+                  <p style="color: white;">
+                    Pediatrics
+                  </p>
+                </div>
+                
+              </div>
+            </div>
+            <div class="col-lg-3 col-sm-6">
+              <div class="box wow animate__slideInRight" data-wow-delay="0s" data-wow-duration="3s">
+                <div class="img-box">
+                  <img src="images/doc3.jpeg" class="img1" alt="">
+                </div>
+                <div class="detail-box">
+                  <h5>
+                    Dr. Imran Khurshid
+                  </h5>
+                  <p style="color: white;">
+                    Orthopedics
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-3 col-sm-6">
+              <div class="box wow animate__slideInRight" data-wow-delay="0s" data-wow-duration="3s">
+                <div class="img-box">
+                  <img src="images/doc5.jpg" class="img1" alt="">
+                </div>
+                <div class="detail-box">
+                  <h5>
+                    Dr. Ayesha Khan
+                  </h5>
+                  <p style="color: white;">
+                    Dermatology
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- end team section -->
+  
+   
+    <!-- client section -->
+  
+    <section class="client_section layout_padding" style="display: flex; justify-content: center; align-items: center; min-height: 100vh;  background-color: #f4f4f9;">
+      <form class="contact-form mt-2" style="background: #3a687d; border-radius: 10px; box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); padding: 30px; max-width: 600px; width: 100%; border: 2px solid #ddd; margin-bottom:30px;">
+        <h2  style="text-align: left; font-family: Arial, sans-serif; color: #f5f0f0; font-weight: bold;">Contact Us</h2>
+        <div class="row mb-3">
+          <div class="col-sm-12 py-2 wow fadeInRight">
+            <label for="emailAddress" class="pb-2" style="font-weight: bold; display: block; text-align: left; color: #f2efef;">Email</label>
+            <input type="text" id="emailAddress" class="form-control" placeholder="Email address.." style="border: 1px solid #ddd; border-radius: 5px; padding: 10px; width: 100%; box-sizing: border-box;">
+          </div>
+
+          <div class="col-sm-12 py-2 wow fadeInRight">
+            <label for="emailAddress" class="pb-2" style="font-weight: bold; display: block; text-align: left; color: #f2efef;">Phone Number</label>
+            <input type="text" id="emailAddress" class="form-control" placeholder="Enter phone number" style="border: 1px solid #ddd; border-radius: 5px; padding: 10px; width: 100%; box-sizing: border-box;">
+          </div>
+          
+          <div class="col-12 py-2 wow fadeInUp">
+            <label for="message" class="pb-2" style="font-weight: bold; display: block; text-align: left; color: #eae9e9;">Message</label>
+            <textarea id="message" class="form-control" rows="4" placeholder="Enter Message.." style="border: 1px solid #ddd; border-radius: 5px; padding: 10px; width: 100%; box-sizing: border-box;"></textarea>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary wow zoomIn" style="background-color:#003366; border: none; border-radius: 5px; padding: 10px 20px; width: 100%; box-sizing: border-box; color: #fff;">Send Message</button>
+      </form>
+    </section>
+    
+    
+  
+    <!-- end client section -->
+  
+  
+<!-- Info Section (Modern Footer) -->
+<section class="info_section layout_padding2" style="background-color: #0d1a2d;">
+  <div class="container">
+    <div class="row gy-4">
+
+      <!-- Contact -->
+      <div class="col-md-6 col-lg-3 info_col">
+        <div class="info_contact">
+          <h4 class="text-white mb-3">Contact</h4>
+          <div class="contact_link_box d-flex flex-column gap-2">
+            <div>
+              <i class="fa fa-map-marker" aria-hidden="true"></i>
+              <span class="ms-2">Based in Pakistan</span>
+            </div>
+            <div>
+              <i class="fa fa-phone" aria-hidden="true"></i>
+              <span class="ms-2">Support available online</span>
+            </div>
+            <a href="mailto:info@vibeguard.com">
+              <i class="fa fa-envelope" aria-hidden="true"></i>
+              <span class="ms-2">vibeguard7@gmail.com</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- About -->
+      <div class="col-md-6 col-lg-3 info_col">
+        <div class="info_detail">
+          <h4 class="text-white mb-3">About VibeGuard</h4>
+          <p style="color: white;">
+            Your smart health & mental wellness companion. Helping you track, relax, and grow, all in one space.
+          </p>
+        </div>
+      </div>
+
+      <!-- Quick Links -->
+      <div class="col-md-6 col-lg-2 info_col">
+        <div class="info_link_box">
+          <h4 class="text-white mb-3">Quick Links</h4>
+          <div class="info_links d-flex flex-column gap-2">
+            <a href="/">Home</a>
+            <a href="/symptomschecker/read">Symptom Checker</a>
+            <a href="/doctor-list">Find Doctors Near You</a>
+            <a href="/about-Us">About Us</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Social -->
+      <div class="col-md-6 col-lg-4 info_col">
+        <h4 class="text-white mb-3">Stay Connected</h4>
+        <p style="color: white;">Follow us on social media for updates and motivation!</p>
+        
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- Footer Bottom -->
+<section class="footer_section" style="background-color: #0a1627; padding: 15px 0;">
+  <i class="fab fa-twitter text-white fs-5 mx-2"></i>
+      <i class="fab fa-instagram text-white fs-5 mx-2"></i>
+      <i class="fab fa-linkedin text-white fs-5 mx-2"></i>
+  <div class="container text-center">
+    <p class="text-white m-0">
+      &copy; <span id="displayYear"></span> VibeGuard. All Rights Reserved.
+    </p>
+  </div>
+</section>
+
+
+
+<div class="toast-container position-fixed top-0 end-0 p-4" style="z-index: 1055;">
+  <% if (notifications && notifications.length > 0) { %>
+    <% notifications.forEach(function(msg) { %>
+      <div class="toast show border-0 mb-4 animate__animated animate__fadeInDown"
+           role="alert" aria-live="assertive" aria-atomic="true"
+           style="
+             backdrop-filter: blur(16px) saturate(180%);
+             -webkit-backdrop-filter: blur(16px) saturate(180%);
+             background-color: rgba(11, 42, 71, 0.85); /* #0B2A47 with slight transparency */
+             border-radius: 20px;
+             box-shadow: 0 12px 24px rgba(38, 198, 218, 0.35); /* Aqua glow */
+             color: #ffffff;
+             min-width: 330px;
+             overflow: hidden;
+             border: 2px solid #26c6da; /* Aqua border */
+             animation-duration: 0.4s;
+           ">
+
+        <!-- Header -->
+        <div class="toast-header text-white d-flex justify-content-between align-items-center"
+             style="background: rgba(255,255,255,0.03); border-bottom: 1px solid rgba(255,255,255,0.08); font-weight: 600; padding: 10px 16px;">
+          
+          <div class="d-flex align-items-center gap-2">
+            <i class="bi bi-stars fs-5" style="color: #26c6da;"></i>
+            <strong>Vibe Guard</strong>
+          </div>
+
+          <div class="d-flex align-items-center gap-3">
+            <small class="text-white-50">Just now</small>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast" aria-label="Close"></button>
+          </div>
+
+        </div>
+
+        <!-- Body -->
+        <div class="toast-body fw-semibold px-4 py-3" style="font-size: 15px;">
+          <%= msg %>
+        </div>
+
+      </div>
+    <% }); %>
+  <% } %>
+</div>
+
+
+    <script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const counters = document.querySelectorAll(".counter");
+    let hasAnimated = false;
+
+    // Function to animate counters
+    const animateCounter = (counter) => {
+      const target = +counter.getAttribute('data-count');
+      let current = 0;
+      const increment = Math.ceil(target / 100); // Adjust speed by changing 100
+
+      const updateCounter = () => {
+        current += increment;
+        if (current >= target) {
+          counter.textContent = target;
+        } else {
+          counter.textContent = current;
+          setTimeout(updateCounter, 20); // Adjust speed by changing 20
+        }
+      };
+
+      updateCounter();
+    };
+
+    // Intersection Observer
+    const observer = new IntersectionObserver((entries) => {
+      if (entries[0].isIntersecting && !hasAnimated) {
+        hasAnimated = true;
+        counters.forEach((counter) => animateCounter(counter));
+      }
+    }, { threshold: 0.5 });
+
+    const funFactsSection = document.querySelector("#fun-facts");
+    observer.observe(funFactsSection);
+  });
+
+
+        new WOW().init();  
+   
+</script>
+</body>
+</html>

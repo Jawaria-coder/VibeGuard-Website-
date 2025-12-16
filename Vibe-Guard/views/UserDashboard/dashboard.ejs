@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Dashboard - Chat Closed on Load</title>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+
+  <style>
+    :root { --sidebar-width: 340px; --chat-width-desktop: 350px; --chat-height-desktop: 450px; }
+
+    /* IMPORTANT: ensure hidden class forces the element to not render (prevents flash) */
+    .hidden { display: none !important; }
+
+    body { background: #f6f8fb; margin:0; font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; }
+
+    /* SIDEBAR (centered profile, footer anchored) */
+    #sidebar {
+      width: var(--sidebar-width);
+      background: #05152A;
+      color: white;
+      min-height: 100vh;
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 2500;
+      overflow: hidden;
+      transform: translateX(-120%);
+      transition: transform 0.28s ease-in-out;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 8px 30px rgba(2,10,20,0.12);
+    }
+    #sidebar.active { transform: translateX(0); }
+
+    .sidebar-header { padding: 20px;     margin-left: 114px; background: #05152A; text-align: left; font-weight:700; color:#fff; }
+
+    .sidebar-inner {
+      flex: 1 1 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 12px 10px;
+      overflow: auto;
+    }
+    .outer-img-div {
+      width: 250px;
+      height: 250px;
+      border: 6px solid #00284D;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #05152A;
+      margin-bottom: 12px;
+      flex-shrink: 0;
+    }
+    #userImage { border-radius: 50%; width: 220px; height: 220px; object-fit: cover; display:block; }
+    .user-info-p { color:white; font-size:18px; margin:6px 0; display:block; text-align:center; }
+
+    .sidebar-footer {
+      padding: 10px;
+      border-top: 1px solid #063560;
+      width: 100%;
+      background: transparent;
+    }
+    .sidebar-footer .components {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      max-height: calc(35vh);
+      overflow-y: auto;
+      overflow-x: hidden;
+      padding-right: 6px;
+    }
+    .sidebar-footer .components li a { color: white; display: block; padding: 10px 12px; text-decoration: none; }
+    .sidebar-footer .components li a:hover { background: #063560; color: white; }
+    /* ✅ Sidebar footer ke andar scrollbar hide */
+    .sidebar-footer .components {
+      scrollbar-width: none;      /* Firefox */
+      -ms-overflow-style: none;   /* IE/Edge old */
+    }
+
+    .sidebar-footer .components::-webkit-scrollbar {
+      display: none;              /* Chrome/Safari */
+    }
+
+    .content { margin-left: 0; padding: 20px; transition: margin-left 0.28s ease; }
+
+    #mobile-menu-btn {
+      display: none;
+      position: fixed;
+      top: 12px;
+      left: 12px;
+      font-size: 20px;
+      color: #ffffff;
+      background: #041D35;
+      padding: 8px 10px;
+      border-radius: 6px;
+      cursor: pointer;
+      z-index: 3000;
+    }
+
+    .card .chart-wrap { height: 260px; position: relative; }
+    canvas { width: 100% !important; height: 100% !important; display:block; }
+
+    /* Chatbot styles */
+    #chatbot-icon {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      width: 60px;
+      height: 60px;
+      background-color:#0B2A47;
+      color: white;
+      font-size: 30px;
+      display: flex; /* icon visible by default */
+      justify-content: center;
+      align-items: center;
+      border-radius: 50%;
+      z-index: 2600;
+      cursor: pointer;
+      box-shadow: 0 8px 24px rgba(11,42,71,0.4);
+      transition: transform .15s ease;
+    }
+    #chatbot-icon:active { transform: scale(.98); }
+
+    /* chat container default (hidden by class) */
+    #chatbot-container {
+      position: fixed;
+      bottom: 90px;
+      right: 20px;
+      width: var(--chat-width-desktop);
+      height: var(--chat-height-desktop);
+      background-color: #1f1f1f;
+      border-radius: 12px;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.5);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      z-index: 2700;
+    }
+
+    #chatbot-header { background-color:#0B2A47; color:white; padding:10px 12px; display:flex; justify-content:space-between; align-items:center; gap:8px; }
+    #close-btn { background: none; border: none; color: white; font-size: 20px; cursor: pointer; }
+
+    #chatbot-body { flex: 1; padding: 10px; overflow-y: auto; background: linear-gradient(180deg, #111111 0%, #1f1f1f 100%); }
+    #chatbot-messages { display:flex; flex-direction: column; gap:8px; }
+    .message { max-width: 85%; padding: 10px 12px; border-radius: 10px; word-wrap:break-word; }
+    .message.user { align-self: flex-end; background-color: #0B2A47; color: white; }
+    .message.bot { align-self: flex-start; background-color: #333; color: white; }
+
+    #chatbot-input-container { display: flex; gap: 8px; padding: 10px; border-top: 1px solid rgba(255,255,255,0.04); background-color: #141414; }
+    #chatbot-input { flex: 1; padding: 10px 12px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.06); background: #222; color: #fff; outline: none; }
+    #send-btn { padding: 8px 12px; border-radius: 8px; border: none; background: #0B2A47; color: #fff; cursor: pointer; }
+
+    /* responsive chat */
+    @media (max-width: 1024px) and (min-width: 601px) {
+      #chatbot-container { width: 420px; height: 520px; right: 24px; bottom: 100px; }
+    }
+    @media (max-width: 600px) {
+      #chatbot-icon { right: 18px; bottom: 18px; }
+      #chatbot-container { left: 8px; right: 8px; bottom: 12px; width: auto; height: 62vh; border-radius: 14px; padding: 0; }
+      #chatbot-header { padding: 12px; }
+      #chatbot-body { padding: 8px; }
+      #chatbot-input { padding: 12px; font-size: 15px; }
+      #chatbot-input-container { padding: 10px; }
+      .message { font-size: 15px; padding: 10px; }
+    }
+
+    /* breakpoints & sidebar/content */
+    @media (max-width: 320px) {
+      #mobile-menu-btn { display:block; }
+      .outer-img-div { margin-left: 28px; width:120px; height:120px; }
+      #userImage { width:100px; height:100px; }
+      .card .chart-wrap { height:180px; }
+      .content { padding:10px; }
+      
+    }
+    @media (min-width:321px) and (max-width:375px) {
+      #mobile-menu-btn { display:block; }
+      .outer-img-div { width:140px; height:140px; }
+      #userImage { width:120px; height:120px; }
+      .card .chart-wrap { height:200px; }
+    }
+    @media (min-width:376px) and (max-width:425px) {
+      #mobile-menu-btn { display:block; }
+      .outer-img-div { width:160px; height:160px; }
+      #userImage { width:140px; height:140px; }
+    }
+    @media (min-width:426px) and (max-width:768px) {
+      #mobile-menu-btn { display:block; }
+      .outer-img-div { width:180px; height:180px; }
+      #userImage { width:160px; height:160px; }
+      .card .chart-wrap { height:240px; }
+    }
+    @media (min-width: 1024px) {
+      #mobile-menu-btn { display:none !important; }
+      #sidebar { transform: translateX(0); position: fixed; left: 0; top: 0; height: 100vh; overflow: hidden;}
+      .content { margin-left: var(--sidebar-width); }
+    }
+    @media(min-width:1366px) and (max-width:1536px) {
+      :root { --sidebar-width: 340px; }
+      #sidebar { width: var(--sidebar-width); }
+      .content { margin-left: var(--sidebar-width); padding:22px; max-width: calc(100% - var(--sidebar-width)); }
+      .outer-img-div { width:260px; height:260px; }
+      #userImage { width:230px; height:230px; }
+      .card .chart-wrap { height:340px; }
+    }
+    @media (width:1440px) {
+      :root { --sidebar-width: 340px; }
+      #sidebar { width: var(--sidebar-width); }
+      .content { margin-left: var(--sidebar-width); padding:24px; max-width: calc(100% - var(--sidebar-width)); }
+      .outer-img-div { width:270px; height:270px; }
+      #userImage { width:240px; height:240px; }
+      .card .chart-wrap { height:360px; }
+    }
+    @media (min-width:1537px) and (max-width:2560px) {
+      :root { --sidebar-width: 360px; }
+      #sidebar { width: var(--sidebar-width); }
+      .content { margin-left: var(--sidebar-width); padding:26px; }
+      .card .chart-wrap { height:380px; }
+    }
+
+    .card { border-radius:8px; }
+    h2 { color:#041D35; font-weight:700; }
+
+@media (max-width: 768px) {
+  #sidebar {
+    transform: translateX(-120%); /* hidden by default */
+    position: fixed;
+    top: 0;
+    height: 100vh;
+  }
+
+  #sidebar.active {
+    transform: translateX(0); /* visible when toggled */
+  }
+
+  #sidebar .sidebar-inner {
+    flex: none;
+    display: block;
+    padding-top: 20px;
+    text-align: center;
+  }
+
+  .sidebar-header {
+    margin-left: 0;
+    padding: 15px 10px;
+    text-align: center;
+  }
+
+  .outer-img-div {
+    margin: 10px auto;
+  }
+
+  .sidebar-footer {
+    margin-top: 20px;
+  }
+
+  /* Show mobile toggle button */
+  #mobile-menu-btn {
+    display: block;
+  }
+}
+
+
+  </style>
+</head>
+<body>
+  <!-- mobile hamburger -->
+  <div id="mobile-menu-btn" aria-expanded="false" aria-label="Open menu"><i class="fas fa-bars"></i></div>
+
+  <!-- sidebar -->
+  <nav id="sidebar" aria-hidden="true">
+    <div class="sidebar-header">
+      <h3>Profile</h3>
+    </div>
+
+    <!-- centerable middle area -->
+    <div class="sidebar-inner">
+      <div class="user-info" id="userInfoBlock">
+        <div class="outer-img-div">
+          <img id="userImage" alt="User Image" src="" />
+        </div>
+        <p class="user-info-p"><i class="fas fa-user"></i> <strong>Name:</strong> <span id="firstName">Loading...</span></p>
+        <p class="user-info-p"><i class="fas fa-calendar-alt"></i> <strong>Age:</strong> <span id="age">Loading...</span></p>
+        <p class="user-info-p"><i class="fas fa-genderless"></i> <strong>Gender:</strong> <span id="gender">Loading...</span></p>
+      </div>
+    </div>
+
+    <!-- footer/menu anchored to bottom (scrollable) -->
+    <div class="sidebar-footer">
+      <ul class="components list-unstyled">
+        <li class="active">
+          <a href="#settingsSubmenu" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+            <i class="fas fa-cogs"></i> Settings
+          </a>
+          <ul class="collapse list-unstyled" id="settingsSubmenu">
+            <li><a href="/symptomschecker/read"><i class="fas fa-stethoscope"></i> Symptom Checker</a></li>
+            <li><a href="/doctor-list"><i class="fas fa-sign-out-alt"></i>Find Doctors</a></li>
+            <li><a href="/feedback/feedback"><i class="fas fa-comments"></i> Feedback</a></li>
+            <li><a href="/login/profile"><i class="fas fa-user"></i> Profile</a></li>
+            <li><a href="/user-report/symptom/report"><i class="fas fa-user"></i> Symptom Report</a></li>
+            <li><a href="/login/logout"><i class="fas fa-sign-out-alt"></i> Log Out</a></li>
+            <!-- add more items — this list will scroll inside the footer area -->
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- main content -->
+  <div class="content">
+<h2 class="mb-4" style="text-align:center;">Health Tracker</h2>
+
+    <div class="card mb-4 shadow-sm">
+      <div class="card-header text-white" style="background-color:#00284D"><strong>Add Health Data</strong></div>
+      <div class="card-body">
+        <form id="healthDataForm">
+          <div class="row g-3">
+            <div class="col-md-6"><label for="time" class="form-label">Time</label><input type="datetime-local" id="time" class="form-control" required></div>
+            <div class="col-md-6"><label for="weight" class="form-label">Weight (kg)</label><input type="number" id="weight" class="form-control" required></div>
+            <div class="col-md-6"><label for="height" class="form-label">Height (cm)</label><input type="number" id="height" class="form-control" required></div>
+            <div class="col-md-6"><label for="bp" class="form-label">Blood Pressure (mmHg)</label><input type="text" id="bp" class="form-control" placeholder="e.g., 120/80" required></div>
+            <div class="col-md-6"><label for="heartRate" class="form-label">Heart Rate (bpm)</label><input type="number" id="heartRate" class="form-control" required></div>
+            <div class="col-md-6"><label for="bmi" class="form-label">BMI</label><input type="number" id="bmi" class="form-control" step="0.1" readonly></div>
+          </div>
+          <button class="btn btn-success mt-3" type="submit">Add Data</button>
+        </form>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6 mb-4"><div class="card shadow-sm p-3"><h5 class="text-center">Weight (kg)</h5><div class="chart-wrap"><canvas id="weightChart"></canvas></div></div></div>
+      <div class="col-md-6 mb-4"><div class="card shadow-sm p-3"><h5 class="text-center">Blood Pressure (mmHg)</h5><div class="chart-wrap"><canvas id="bpChart"></canvas></div></div></div>
+      <div class="col-md-6 mb-4"><div class="card shadow-sm p-3"><h5 class="text-center">Heart Rate (bpm)</h5><div class="chart-wrap"><canvas id="heartRateChart"></canvas></div></div></div>
+      <div class="col-md-6 mb-4"><div class="card shadow-sm p-3"><h5 class="text-center">BMI</h5><div class="chart-wrap"><canvas id="bmiChart"></canvas></div></div></div>
+    </div>
+  </div>
+
+  <!-- chatbot icon + container (container starts hidden via class) -->
+  <div id="chatbot-icon" role="button" aria-label="Open chat">💬</div>
+
+  <div id="chatbot-container" class="hidden" aria-hidden="true" role="dialog" aria-label="Chatbot">
+    <div id="chatbot-header">
+      <div class="title">ChatBot</div>
+      <button id="close-btn" aria-label="Close chat">&times;</button>
+    </div>
+
+    <div id="chatbot-body">
+      <div id="chatbot-messages"></div>
+    </div>
+
+    <div id="chatbot-input-container">
+      <input id="chatbot-input" placeholder="Type a message" aria-label="Type a message"/>
+      <button id="send-btn">Send</button>
+    </div>
+  </div>
+
+  <script>
+    // helper
+    function safeJSONParse(s, fallback) { try { return JSON.parse(s); } catch(e) { return fallback; } }
+
+    // default embedded avatar (fallback)
+    const DEFAULT_AVATAR_SVG = encodeURIComponent(
+      '<svg xmlns="http://www.w3.org/2000/svg" width="240" height="240"><rect rx="120" ry="120" width="100%" height="100%" fill="#0B2A47"/><g fill="#ffffff" transform="translate(60 50)"><circle cx="60" cy="50" r="34"/><rect x="12" y="110" rx="20" ry="20" width="96" height="42"/></g></svg>'
+    );
+    const DEFAULT_AVATAR = 'data:image/svg+xml;utf8,' + DEFAULT_AVATAR_SVG;
+
+    // Fetch user (DB) then fallback to local
+    function loadUserInfo() {
+      $.get('/tracking/api/getUserData')
+        .done(function(user) {
+          if (!user) { applyUserFallback(); return; }
+          $('#firstName').text((user.firstName || '') + (user.lastName ? (' ' + user.lastName) : ''));
+          $('#age').text(user.age || 'N/A');
+          $('#gender').text(user.gender || 'N/A');
+
+          const imgVal = user.image || user.imageUrl || '';
+          let src = DEFAULT_AVATAR;
+          try {
+            if (imgVal && (imgVal.startsWith('http') || imgVal.startsWith('data:'))) src = imgVal;
+            else if (imgVal) src = '/images/' + imgVal;
+          } catch(e) { src = DEFAULT_AVATAR; }
+          $('#userImage').attr('src', src);
+        })
+        .fail(function() { applyUserFallback(); });
+    }
+    function applyUserFallback() {
+      let user = safeJSONParse(localStorage.getItem('userProfile'), null);
+      if (!user) {
+        user = { firstName: 'Sara', lastName: 'Khan', age: 28, gender: 'Female', image: '' };
+        localStorage.setItem('userProfile', JSON.stringify(user));
+      }
+      $('#firstName').text((user.firstName || '') + (user.lastName ? (' ' + user.lastName) : ''));
+      $('#age').text(user.age || 'N/A');
+      $('#gender').text(user.gender || 'N/A');
+      if (user.image && (user.image.startsWith('http') || user.image.startsWith('data:'))) $('#userImage').attr('src', user.image);
+      else if (user.image) $('#userImage').attr('src', '/images/' + user.image);
+      else $('#userImage').attr('src', DEFAULT_AVATAR);
+    }
+
+    /* ---------------- Health data & charts (unchanged logic) ---------------- */
+    function ensureSampleHealthData() {
+      const existing = safeJSONParse(localStorage.getItem('healthData'), null);
+      if (!existing || !Array.isArray(existing) || existing.length === 0) {
+        const now = new Date();
+        const sample = [
+          { time: new Date(now.getTime() - 5 * 24 * 3600 * 1000).toISOString(), weight: 70, height: 170, bp: "120/80", heartRate: 72, bmi: 24.2 },
+          { time: new Date(now.getTime() - 3 * 24 * 3600 * 1000).toISOString(), weight: 69.5, height: 170, bp: "118/78", heartRate: 70, bmi: 24.0 },
+          { time: now.toISOString(), weight: 69, height: 170, bp: "119/79", heartRate: 71, bmi: 23.9 }
+        ];
+        localStorage.setItem('healthData', JSON.stringify(sample));
+        return sample;
+      }
+      return existing;
+    }
+
+    let weightChart, bpChart, heartRateChart, bmiChart;
+    function fetchHealthDataAndRender() {
+      const healthData = ensureSampleHealthData();
+      if (!healthData || !healthData.length) return;
+      const labels = healthData.map(d => new Date(d.time).toLocaleString());
+      [weightChart, bpChart, heartRateChart, bmiChart].forEach(c => { if (c && c.destroy) c.destroy(); });
+      const commonOptions = { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: true } } };
+      weightChart = new Chart(document.getElementById('weightChart'), { type: 'line', data: { labels, datasets: [{ label: 'Weight (kg)', data: healthData.map(d => d.weight), borderColor: '#041D35', tension: 0.3, fill: false }] }, options: commonOptions });
+      bpChart = new Chart(document.getElementById('bpChart'), { type: 'line', data: { labels, datasets: [{ label: 'Systolic (Top) BP', data: healthData.map(d => { const parts = (d.bp || "").split('/'); const s = parseInt(parts[0]); return isNaN(s) ? null : s; }), borderColor: '#0B5345', tension: 0.3, fill: false }] }, options: commonOptions });
+      heartRateChart = new Chart(document.getElementById('heartRateChart'), { type: 'line', data: { labels, datasets: [{ label: 'Heart Rate (bpm)', data: healthData.map(d => d.heartRate || null), borderColor: '#A93226', tension: 0.3, fill: false }] }, options: commonOptions });
+      bmiChart = new Chart(document.getElementById('bmiChart'), { type: 'line', data: { labels, datasets: [{ label: 'BMI', data: healthData.map(d => d.bmi || null), borderColor: '#2874A6', tension: 0.3, fill: false }] }, options: commonOptions });
+    }
+
+    // Form submit saved locally
+    $('#healthDataForm').on('submit', function (e) {
+      e.preventDefault();
+      const rec = {
+        time: $('#time').val() || new Date().toISOString(),
+        weight: parseFloat($('#weight').val()),
+        height: parseFloat($('#height').val()),
+        bp: $('#bp').val(),
+        heartRate: parseInt($('#heartRate').val()),
+        bmi: parseFloat($('#bmi').val())
+      };
+      const arr = safeJSONParse(localStorage.getItem('healthData'), []);
+      arr.push(rec);
+      localStorage.setItem('healthData', JSON.stringify(arr));
+      alert('Record added (saved locally)');
+      $('#healthDataForm')[0].reset();
+      fetchHealthDataAndRender();
+    });
+
+    // BMI calc
+    const weightInput = document.getElementById('weight');
+    const heightInput = document.getElementById('height');
+    const bmiInput = document.getElementById('bmi');
+    function calculateBMI() {
+      const w = parseFloat(weightInput.value);
+      const h = parseFloat(heightInput.value);
+      if (!isNaN(w) && !isNaN(h) && h > 0) {
+        const m = h / 100;
+        const bmi = w / (m * m);
+        bmiInput.value = bmi.toFixed(1);
+      } else bmiInput.value = '';
+    }
+    weightInput && weightInput.addEventListener('input', calculateBMI);
+    heightInput && heightInput.addEventListener('input', calculateBMI);
+
+    /* ---------------- Sidebar behavior (unchanged) ---------------- */
+    document.addEventListener('DOMContentLoaded', function () {
+      const mobileBtn = document.getElementById('mobile-menu-btn');
+      const sidebar = document.getElementById('sidebar');
+      const icon = mobileBtn.querySelector('i');
+
+      function updateSidebarByWidth() {
+        const w = window.innerWidth;
+        if (w >= 1024) {
+          sidebar.classList.add('active');
+          mobileBtn.style.display = 'none';
+          mobileBtn.setAttribute('aria-expanded', 'true');
+          if (icon) { icon.classList.remove('fa-bars'); icon.classList.add('fa-times'); }
+        } else {
+          sidebar.classList.remove('active');
+          mobileBtn.style.display = 'block';
+          mobileBtn.setAttribute('aria-expanded', 'false');
+          if (icon) { icon.classList.remove('fa-times'); icon.classList.add('fa-bars'); }
+        }
+      }
+
+      updateSidebarByWidth();
+      let resizeTimer;
+      window.addEventListener('resize', function () { clearTimeout(resizeTimer); resizeTimer = setTimeout(updateSidebarByWidth, 120); });
+
+      mobileBtn.addEventListener('click', function (e) {
+        e.stopPropagation();
+        sidebar.classList.toggle('active');
+        const opened = sidebar.classList.contains('active');
+        mobileBtn.setAttribute('aria-expanded', opened ? 'true' : 'false');
+        if (icon) { icon.classList.toggle('fa-bars'); icon.classList.toggle('fa-times'); }
+      });
+
+      // clicking outside closes on small screens (only for sidebar)
+      document.addEventListener('click', function (evt) {
+        const isInsideSidebar = sidebar.contains(evt.target);
+        const isOnBtn = mobileBtn.contains(evt.target);
+        if (!isInsideSidebar && !isOnBtn && window.innerWidth < 1024 && sidebar.classList.contains('active')) {
+          sidebar.classList.remove('active');
+          if (icon) { icon.classList.remove('fa-times'); icon.classList.add('fa-bars'); }
+          mobileBtn.setAttribute('aria-expanded', 'false');
+        }
+      });
+
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && sidebar.classList.contains('active') && window.innerWidth < 1024) {
+          sidebar.classList.remove('active');
+          if (icon) { icon.classList.remove('fa-times'); icon.classList.add('fa-bars'); }
+          mobileBtn.setAttribute('aria-expanded', 'false');
+        }
+      });
+    });
+
+    /* ---------------- Chatbot controlled-open/close (ONLY icon opens; close button closes) ---------------- */
+document.addEventListener('DOMContentLoaded', function(){
+  const icon = document.getElementById('chatbot-icon');
+  const container = document.getElementById('chatbot-container');
+  const closeBtn = document.getElementById('close-btn');
+  const sendBtn = document.getElementById('send-btn');
+  const input = document.getElementById('chatbot-input');
+  const messages = document.getElementById('chatbot-messages');
+
+  // ✅ Gemini API Config
+  const API_KEY = "AIzaSyA6P7QMnGpPNeUHBSwoWBQ5i2HZM50V7kI";
+  const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${API_KEY}`;
+
+  // Start closed
+  container.classList.add('hidden');
+  container.setAttribute('aria-hidden', 'true');
+  icon.style.display = 'flex';
+
+  function openChat() {
+    if (!container.classList.contains('hidden')) return;
+    container.classList.remove('hidden');
+    container.setAttribute('aria-hidden', 'false');
+    icon.style.display = 'none';
+    setTimeout(() => input && input.focus(), 150);
+  }
+
+  function closeChat() {
+    if (container.classList.contains('hidden')) return;
+    container.classList.add('hidden');
+    container.setAttribute('aria-hidden', 'true');
+    icon.style.display = 'flex';
+  }
+
+  icon.addEventListener('click', openChat);
+  closeBtn.addEventListener('click', closeChat);
+
+  document.addEventListener('keydown', function(e){
+    if (e.key === 'Escape' && !container.classList.contains('hidden')) closeChat();
+  });
+
+  // ✅ Append messages
+  function appendMessage(sender, text) {
+    const el = document.createElement('div');
+    el.classList.add('message', sender);
+    el.textContent = text;
+    messages.appendChild(el);
+    messages.scrollTop = messages.scrollHeight;
+  }
+
+  // ✅ Send Message (now real Gemini API call)
+  async function sendMessage() {
+    const txt = input.value.trim();
+    if (!txt) return;
+    appendMessage('user', txt);
+    input.value = '';
+    appendMessage('bot', 'Typing...');
+
+    try {
+      const res = await fetch(API_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          contents: [{ parts: [{ text: txt }] }]
+        })
+      });
+
+      const data = await res.json();
+      console.log("Gemini Response:", data);
+
+      let reply =
+        data.candidates?.[0]?.content?.parts?.[0]?.text ||
+        "Sorry, I didn't understand that.";
+
+      // replace "Typing..." with actual reply
+      const lastBotMsg = messages.querySelector(".bot:last-child");
+      if (lastBotMsg) lastBotMsg.textContent = reply;
+    } catch (err) {
+      console.error(err);
+      const lastBotMsg = messages.querySelector(".bot:last-child");
+      if (lastBotMsg) lastBotMsg.textContent = "⚠️ Error connecting to Gemini API.";
+    }
+  }
+
+  sendBtn.addEventListener('click', sendMessage);
+  input.addEventListener('keypress', (e) => { if (e.key === 'Enter') sendMessage(); });
+});
+
+    /* ---------------- initial load ---------------- */
+    $(document).ready(function () {
+      loadUserInfo();           // tries DB first for user/photo
+      fetchHealthDataAndRender();
+    });
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

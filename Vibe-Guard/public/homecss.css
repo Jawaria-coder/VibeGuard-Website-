@@ -1,0 +1,88 @@
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: "Jersey 26",sans-serif;
+  height: 100vh; /* Ensure it covers the viewport height */
+
+}
+.fsh-5{
+  font-size: small;
+}
+.vg {
+  font-size: x-small;
+  padding-left: 225px;
+  
+}
+#demo .carousel-inner {
+  height: 600px; /* Adjust this value as needed */
+}
+
+#demo .carousel-item img {
+  height: 100%; /* Ensures images fill the carousel container */
+  object-fit: cover; /* Ensures the images cover the area without stretching */
+}
+
+.hp-25{
+  height: 50%;
+}
+.prescription {
+  position : absolute;
+  height: 470px;
+  width: 35%;
+  margin-top: 5%;
+  background-color: #020F27;
+  margin-left: 7rem !important;
+}
+.page {
+  position: relative;
+  height: 421px;
+  width: 92%;
+  margin-top: 5%;
+  background-color: #ffffff;
+  margin-left: 19px;
+  margin-bottom: 5px;
+}
+.lines{
+  height: 316px;
+  width: 98%;
+}
+.psh-5{
+  padding-left: 52rem ;
+}
+
+
+
+.title{
+  font-size: 70px;
+}
+.linesw-25{
+ 
+  width: 60%; 
+  height: auto;
+ 
+}
+.btn{
+  background-color: #088395;
+}
+.hand{
+  margin-bottom: 50%;
+}
+.footer {
+  background-color: #080808;
+  color: #fff;
+  padding: 20px 0;
+}
+.footer .footer-links a {
+  color: #fff;
+  text-decoration: none;
+  margin-right: 15px;
+}
+.footer .footer-links a:hover {
+  text-decoration: underline;
+}
+.footer .social-icons a {
+  color: #fff;
+  margin-right: 10px;
+  font-size: 20px;
+}

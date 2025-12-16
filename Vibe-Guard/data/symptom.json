@@ -1,0 +1,76 @@
+[
+  { "name": "Chest Pain", "body_part_id": "6768aace4f18efd02417b348" },
+  { "name": "Irregular Heartbeat", "body_part_id": "6768aace4f18efd02417b348" },
+  { "name": "Shortness of Breath", "body_part_id": "6768aace4f18efd02417b348" },
+  { "name": "Fatigue During Activity", "body_part_id": "6768aace4f18efd02417b348" },
+
+  { "name": "Yellowing of Skin (Jaundice)", "body_part_id": "6768aadb4f18efd02417b34b" },
+  { "name": "Abdominal Pain (Upper Right)", "body_part_id": "6768aadb4f18efd02417b34b" },
+  { "name": "Dark Urine", "body_part_id": "6768aadb4f18efd02417b34b" },
+  { "name": "Swelling in Legs/Ankles", "body_part_id": "6768aadb4f18efd02417b34b" },
+
+  { "name": "Back Pain (Lower)", "body_part_id": "6768aae54f18efd02417b34e" },
+  { "name": "Frequent Urination", "body_part_id": "6768aae54f18efd02417b34e" },
+  { "name": "Blood in Urine", "body_part_id": "6768aae54f18efd02417b34e" },
+  { "name": "Swelling in Hands/Feet", "body_part_id": "6768aae54f18efd02417b34e" },
+
+  { "name": "Indigestion", "body_part_id": "6768aafb4f18efd02417b351" },
+  { "name": "Nausea", "body_part_id": "6768aafb4f18efd02417b351" },
+  { "name": "Burning Sensation", "body_part_id": "6768aafb4f18efd02417b351" },
+  { "name": "Abdominal Bloating", "body_part_id": "6768aafb4f18efd02417b351" },
+
+  { "name": "Constipation", "body_part_id": "6768ab0d4f18efd02417b354" },
+  { "name": "Cramping", "body_part_id": "6768ab0d4f18efd02417b354" },
+  { "name": "Blood in Stool", "body_part_id": "6768ab0d4f18efd02417b354" },
+  { "name": "Diarrhea", "body_part_id": "6768ab0d4f18efd02417b354" },
+
+  { "name": "Abdominal cramps", "body_part_id": "6768ab1a4f18efd02417b357" },
+  { "name": "Indigestion", "body_part_id": "6768ab1a4f18efd02417b357" },
+  { "name": "Diarrhea", "body_part_id": "6768ab1a4f18efd02417b357" },
+  { "name": "Bloating", "body_part_id": "6768ab1a4f18efd02417b357" },
+
+  { "name": "Headache", "body_part_id": "68534d2112cd28eb7328e907" },
+  { "name": "Memory loss", "body_part_id": "68534d2112cd28eb7328e907" },
+  { "name": "Dizziness", "body_part_id": "68534d2112cd28eb7328e907" },
+  { "name": "Seizures", "body_part_id": "68534d2112cd28eb7328e907" },
+
+  { "name": "Shortness of breath", "body_part_id": "68534d3712cd28eb7328e90b" },
+  { "name": "Coughing", "body_part_id": "68534d3712cd28eb7328e90b" },
+  { "name": "Chest pain", "body_part_id": "68534d3712cd28eb7328e90b" },
+  { "name": "Wheezing", "body_part_id": "68534d3712cd28eb7328e90b" },
+
+  { "name": "Sneezing", "body_part_id": "68534d4e12cd28eb7328e90f" },
+  { "name": "Runny nose", "body_part_id": "68534d4e12cd28eb7328e90f" },
+  { "name": "Congestion", "body_part_id": "68534d4e12cd28eb7328e90f" },
+  { "name": "Loss of smell", "body_part_id": "68534d4e12cd28eb7328e90f" },
+
+  { "name": "Foot pain", "body_part_id": "68534d5b12cd28eb7328e913" },
+  { "name": "Swelling", "body_part_id": "68534d5b12cd28eb7328e913" },
+  { "name": "Numbness", "body_part_id": "68534d5b12cd28eb7328e913" },
+  { "name": "Blisters", "body_part_id": "68534d5b12cd28eb7328e913" },
+
+  { "name": "Leg cramps", "body_part_id": "68534d7012cd28eb7328e917" },
+  { "name": "Swelling", "body_part_id": "68534d7012cd28eb7328e917" },
+  { "name": "Numbness", "body_part_id": "68534d7012cd28eb7328e917" },
+  { "name": "Pain while walking", "body_part_id": "68534d7012cd28eb7328e917" },
+
+  { "name": "Swelling", "body_part_id": "68534d8312cd28eb7328e91b" },
+  { "name": "Numbness", "body_part_id": "68534d8312cd28eb7328e91b" },
+  { "name": "Tingling", "body_part_id": "68534d8312cd28eb7328e91b" },
+  { "name": "Pain", "body_part_id": "68534d8312cd28eb7328e91b" },
+
+  { "name": "Tightness", "body_part_id": "68534da812cd28eb7328e91f" },
+  { "name": "Pain", "body_part_id": "68534da812cd28eb7328e91f" },
+  { "name": "Shortness of Breath", "body_part_id": "68534da812cd28eb7328e91f" },
+  { "name": "Pressure", "body_part_id": "68534da812cd28eb7328e91f" },
+
+  { "name": "Redness", "body_part_id": "68534dc512cd28eb7328e923" },
+  { "name": "Itching", "body_part_id": "68534dc512cd28eb7328e923" },
+  { "name": "Blurred Vision", "body_part_id": "68534dc512cd28eb7328e923" },
+  { "name": "Dryness", "body_part_id": "68534dc512cd28eb7328e923" },
+
+  { "name": "Ringing", "body_part_id": "68534de712cd28eb7328e927" },
+  { "name": "Pain", "body_part_id": "68534de712cd28eb7328e927" },
+  { "name": "Hearing Loss", "body_part_id": "68534de712cd28eb7328e927" },
+  { "name": "Discharge", "body_part_id": "68534de712cd28eb7328e927" }
+]

@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Home Page</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="homecss.css">
+  <link rel="stylesheet" href="theme.css">
+  <link rel="stylesheet" href="style.css">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.carousel.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.theme.default.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.carousel.min.js"></script>
+    <script src="public/script.js"></script>
+    <!-- Include Animate.css for animations -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet">
+    <!-- Include WOW.js for triggering animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js"></script>
+<style>
+
+
+    .navbar {
+      background-color: #041D35;
+      padding: 10px 20px;
+    }
+
+    .navbar-brand {
+      font-weight: bold;
+      font-size: 24px;
+      color: white;
+    }
+
+    .navbar-brand .vibeGuard {
+      color: #3399ff;
+      font-size: 30px;
+    }
+
+    .navbar-toggler {
+      border-color: white;
+    }
+
+    .navbar-toggler-icon {
+      background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3e%3cpath stroke='white' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+    }
+
+    .navbar-nav .nav-link {
+      color: #ffffff !important;
+      font-weight: 500;
+      padding: 8px 15px;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    .navbar-nav .nav-link:hover {
+      color: #3399ff !important;
+      background-color: rgba(255, 255, 255, 0.05);
+      border-radius: 8px;
+    }
+
+    .navbar-nav .nav-link.active {
+      color: #3399ff !important;
+      font-weight: bold;
+    }
+
+.logo {
+    width: 45%; /* Adjust logo size relative to the square */
+    height: auto;
+    padding-left: 11%;
+  }
+
+  /* About Us Section */
+.about_us_section {
+  background-color: #293a4a;
+  color: white;
+  padding: 40px 20px;
+  text-align: center;
+}
+
+.section_title {
+  font-size: 28px;
+  font-weight: bold;
+  color: #3399ff;
+  margin-bottom: 20px;
+}
+
+.about_us_content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+
+
+
+</style> 
+</head>
+<body>
+
+
+  <body>
+
+    <div class="hero_area">
+  
+      
+      <!-- Topbar Section -->
+    <nav class="navbar navbar-expand-lg">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">
+          <span class="vibeGuard">V</span><span>ibeGuard</span>
+        </a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon" style="color: #fff"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a class="nav-link " href="/">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/login/register">Register</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/symptomschecker/read"
+                >SymptomChecker</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/tracking/dashboard">UserDashboard</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" href="/about-Us">About Us</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+
+<section class="about_us_section layout_padding" style="background-color: #fafafa; color: white;">
+  <div class="container" style="display: flex; flex-wrap: wrap; gap: 20px;">
+    
+    <!-- Left: Text content -->
+    <div class="about_us_text" style="flex: 1; min-width: 300px;">
+      <h2 class="section_title" style="color: black; text-align: left;">About Us</h2>
+
+      <p style="color: black; text-align: left;"><strong>VibeGuard</strong> is your personal healthcare companion, built to simplify and enhance your health journey...</p>
+
+      <p style="color: black; text-align: left;">With our <strong>Symptom Checker</strong>, you can quickly get insights into possible health concerns...</p>
+
+      <p style="color: black; text-align: left;">The <strong>Medicines & Overview</strong> section allows users to explore details about medications...</p>
+
+      <p style="color: black; text-align: left;">Our <strong>Precautions & Health Tips</strong> area delivers actionable advice...</p>
+
+      <p style="color: black; text-align: left;">Registered users have access to a <strong>Personal Dashboard</strong>...</p>
+
+      <p style="color: black; text-align: left;">With our <strong>Post Your Story</strong> feature, you can share your health experiences...</p>
+
+      <p style="color: black; text-align: left;">Users can easily <strong>Find Doctors</strong> in their area...</p>
+
+      <p style="color: black; text-align: left;">At <strong>VibeGuard</strong>, we’re committed to ensuring everyone has access...</p>
+    </div>
+
+    <!-- Right: Images -->
+    <div class="about_us_images" style="flex: 1; min-width: 280px; height:400px ; display: flex; flex-direction: column; gap: 15px; align-items: center;">
+      <!-- <img src="images/aboutus2.webp" alt="Healthcare feature" style="width: 400px; border-radius: 10px;"> -->
+      <img src="images/aboutus1.jpg" alt="Healthcare feature" style="width: 100%; border-radius: 10px;">
+      </div>
+
+  </div>
+</section>
+
+
+<!-- Terms and Conditions Section -->
+<section class="terms_section layout_padding" style="background-color: #0b1c36; color: rgb(9, 9, 9);">
+  <div class="container">
+    <h2 class="section_title" style="color: white; text-align: left;">Terms and Conditions</h2>
+    <div class="terms_content">
+      <div class="terms_text">
+        <p style="color: white;"><strong>1. Use of Platform:</strong> VibeGuard is intended to provide general health-related information and access to health professionals. It is not a substitute for emergency or in-person medical care.</p>
+
+        <p style="color: white; text-align: left;"><strong>2. Accuracy:</strong> While we strive to keep the information accurate and up-to-date, we do not guarantee the absolute accuracy of the medical data provided. Always consult a licensed professional before making health decisions.</p>
+
+        <p style="color: white; text-align: left;"><strong>3. User Responsibility:</strong> Users are responsible for keeping their personal and health information updated and accurate. Misuse of the platform may lead to restricted access or permanent ban.</p>
+
+        <p style="color: white; text-align: left;"><strong>4. Data Privacy:</strong> We respect your privacy. All user data is protected under our privacy policy and will not be shared without your consent unless required by law.</p>
+
+        <p style="color: white; text-align: left;"><strong>5. Content Sharing:</strong> Any posts or stories shared must not include false, offensive, or harmful content. We reserve the right to moderate or remove any such content.</p>
+
+        <p style="color: white; text-align: left;"><strong>6. Third-Party Links:</strong> VibeGuard may include links to third-party websites. We are not responsible for the content or policies of these external sites.</p>
+
+        <p style="color: white; text-align: left;"><strong>7. Modifications:</strong> We reserve the right to update these terms at any time. Users will be notified of significant changes via the platform or email.</p>
+
+        <p style="color: white; text-align: left;">By using VibeGuard, you agree to abide by these terms. If you do not agree, please discontinue use of the platform.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+ <section class="client_section layout_padding" style="display: flex; justify-content: center; align-items: center; min-height: 100vh;  background-color: #f4f4f9;">
+      <form class="contact-form mt-2" style="background: #3a687d; border-radius: 10px; box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); padding: 30px; max-width: 600px; width: 100%; border: 2px solid #ddd; margin-bottom:30px;">
+        <h2  style="text-align: left; font-family: Arial, sans-serif; color: #f5f0f0; font-weight: bold;">Contact Us</h2>
+        <div class="row mb-3">
+          <div class="col-sm-12 py-2 wow fadeInRight">
+            <label for="emailAddress" class="pb-2" style="font-weight: bold; display: block; text-align: left; color: #f2efef;">Email</label>
+            <input type="text" id="emailAddress" class="form-control" placeholder="Email address.." style="border: 1px solid #ddd; border-radius: 5px; padding: 10px; width: 100%; box-sizing: border-box;">
+          </div>
+
+          <div class="col-sm-12 py-2 wow fadeInRight">
+            <label for="emailAddress" class="pb-2" style="font-weight: bold; display: block; text-align: left; color: #f2efef;">Phone Number</label>
+            <input type="text" id="emailAddress" class="form-control" placeholder="Enter phone number" style="border: 1px solid #ddd; border-radius: 5px; padding: 10px; width: 100%; box-sizing: border-box;">
+          </div>
+          
+          <div class="col-12 py-2 wow fadeInUp">
+            <label for="message" class="pb-2" style="font-weight: bold; display: block; text-align: left; color: #eae9e9;">Message</label>
+            <textarea id="message" class="form-control" rows="4" placeholder="Enter Message.." style="border: 1px solid #ddd; border-radius: 5px; padding: 10px; width: 100%; box-sizing: border-box;"></textarea>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary wow zoomIn" style="background-color:#003366; border: none; border-radius: 5px; padding: 10px 20px; width: 100%; box-sizing: border-box; color: #fff;">Send Message</button>
+      </form>
+    </section>
+    
+  
+
+
+  
+    <!-- footer section -->
+<section class="info_section layout_padding2" style="background-color: #0d1a2d;">
+  <div class="container">
+    <div class="row gy-4">
+
+      <!-- Contact -->
+      <div class="col-md-6 col-lg-3 info_col">
+        <div class="info_contact">
+          <h4 class="text-white mb-3">Contact</h4>
+          <div class="contact_link_box d-flex flex-column gap-2">
+            <div>
+              <i class="fa fa-map-marker" aria-hidden="true"></i>
+              <span class="ms-2">Based in Pakistan</span>
+            </div>
+            <div>
+              <i class="fa fa-phone" aria-hidden="true"></i>
+              <span class="ms-2">Support available online</span>
+            </div>
+            <a href="mailto:info@vibeguard.com">
+              <i class="fa fa-envelope" aria-hidden="true"></i>
+              <span class="ms-2">vibeguard7@gmail.com</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- About -->
+      <div class="col-md-6 col-lg-3 info_col">
+        <div class="info_detail">
+          <h4 class="text-white mb-3">About VibeGuard</h4>
+          <p style="color: white;">
+            Your smart health & mental wellness companion. Helping you track, relax, and grow, all in one space.
+          </p>
+        </div>
+      </div>
+
+      <!-- Quick Links -->
+      <div class="col-md-6 col-lg-2 info_col">
+        <div class="info_link_box">
+          <h4 class="text-white mb-3">Quick Links</h4>
+          <div class="info_links d-flex flex-column gap-2">
+            <a href="/">Home</a>
+            <a href="/symptomschecker/read">Symptom Checker</a>
+            <a href="/doctor-list">Find Doctors Near You</a>
+            <a href="/about-Us">About Us</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Social -->
+      <div class="col-md-6 col-lg-4 info_col">
+        <h4 class="text-white mb-3">Stay Connected</h4>
+        <p style="color: white;">Follow us on social media for updates and motivation!</p>
+        
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- Footer Bottom -->
+<section class="footer_section" style="background-color: #0a1627; padding: 15px 0;">
+  <i class="fab fa-twitter text-white fs-5 mx-2"></i>
+      <i class="fab fa-instagram text-white fs-5 mx-2"></i>
+      <i class="fab fa-linkedin text-white fs-5 mx-2"></i>
+  <div class="container text-center">
+    <p class="text-white m-0">
+      &copy; <span id="displayYear"></span> VibeGuard. All Rights Reserved.
+    </p>
+  </div>
+</section>
+
+
+    <script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const counters = document.querySelectorAll(".counter");
+    let hasAnimated = false;
+
+    // Function to animate counters
+    const animateCounter = (counter) => {
+      const target = +counter.getAttribute('data-count');
+      let current = 0;
+      const increment = Math.ceil(target / 100); // Adjust speed by changing 100
+
+      const updateCounter = () => {
+        current += increment;
+        if (current >= target) {
+          counter.textContent = target;
+        } else {
+          counter.textContent = current;
+          setTimeout(updateCounter, 20); // Adjust speed by changing 20
+        }
+      };
+
+      updateCounter();
+    };
+
+    // Intersection Observer
+    const observer = new IntersectionObserver((entries) => {
+      if (entries[0].isIntersecting && !hasAnimated) {
+        hasAnimated = true;
+        counters.forEach((counter) => animateCounter(counter));
+      }
+    }, { threshold: 0.5 });
+
+    const funFactsSection = document.querySelector("#fun-facts");
+    observer.observe(funFactsSection);
+  });
+
+
+        new WOW().init();  
+   
+</script>
+</body>
+</html>

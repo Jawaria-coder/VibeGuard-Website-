@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Symptom List</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    /* Custom Styles for Table and Buttons */
+    .table th, .table td {
+      vertical-align: middle;
+      padding: 15px;
+    }
+    .table img {
+      border-radius: 50%;
+    }
+
+    /* General Button Styles */
+    .btn-custom {
+      padding: 10px;
+      font-size: 1.5rem;
+      border-radius: 50%;
+      width: 45px;
+      height: 45px;
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      transition: all 0.3s ease;
+      margin-right: 8px;
+    }
+    .btn-edit {
+      background-color: #007bff;
+      color: white;
+    }
+    .btn-edit:hover {
+      background-color: #0056b3;
+      
+    }
+    .btn-delete {
+      background-color: #dc3545;
+      color: white;
+    }
+    .btn-delete:hover {
+      background-color: #c82333;
+    }
+
+    /* Table Customization */
+    .table-responsive {
+      margin-top: 30px;
+    }
+    .table-bordered {
+      border: 1px solid #dee2e6;
+    }
+    .table-hover tbody tr:hover {
+      background-color: #f8f9fa;
+    }
+    .table-dark th {
+      background-color: #28666E;
+      color: white;
+    }
+    .table-dark td {
+      background-color: #f8f9fa;
+    }
+    .table-striped tbody tr:nth-of-type(odd) {
+      background-color: #f2f2f2;
+    }
+    
+    /* Styling for the Body Part column */
+    .body-part-cell {
+      font-weight: bold;
+      color: #6c757d;
+      background-color: #e9ecef;
+      text-transform: capitalize;
+      border-radius: 4px;
+      padding: 5px;
+    }
+    .body-part-unknown {
+      background-color: #f8d7da;
+      color: #721c24;
+    }
+    .body-part-known {
+      background-color: #d4edda;
+      color: #155724;
+    }
+
+    /* Custom Add Button */
+    .btn-add {
+      padding: 10px;
+      font-size: 1.5rem;
+      border-radius: 50%;
+      width: 45px;
+      height: 45px;
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #004085;
+      color: white;
+      transition: all 0.3s ease;
+      margin-bottom: 20px;
+    }
+    .btn-add:hover {
+      background-color: #14426f;
+      color:white;
+      transform: scale(1.1);
+    }
+
+  </style>
+</head>
+<body>
+  <div class="container mt-5">
+    <!-- Logout Button -->
+    <a href="/symptoms/add" class="btn btn-add">
+      <i class="bi bi-plus"></i>
+    </a>
+    <h1 class="text-center mb-4">Symptom List</h1>
+    
+    <!-- Your existing table code -->
+<div class="row">
+  <div class="col-12">
+    <div class="table-responsive">
+      <table class="table table-bordered table-hover table-striped">
+        <thead class="table-dark text-center">
+          <tr>
+            <th>#</th>
+            <th>Symptom Name</th>
+            <th>Related Body Part</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% if (symptoms.length > 0) { %>
+            <% symptoms.forEach((symptom, index) => { %>
+              <tr>
+                <td><%= (currentPage - 1) * limit + index + 1 %></td>
+                <td><%= symptom.name %></td>
+                <td class="body-part-cell <%= symptom.body_part_id ? 'body-part-known' : 'body-part-unknown' %>">
+                  <%= symptom.body_part_id?.name || "Unknown Body Part" %>
+                </td>
+                <td class="text-center">
+                  <div class="d-flex justify-content-center">
+                    <a href="/symptoms/edit/<%= symptom._id %>" class="btn btn-edit btn-custom">
+                      <i class="bi bi-pencil-fill"></i>
+                    </a>
+                    <a href="#"
+                      class="btn btn-delete btn-custom delete-btn"
+                      data-id="<%= symptom._id %>"
+                      data-name="<%= symptom.name || 'this symptom' %>">
+                      <i class="bi bi-trash-fill"></i>
+                    </a>
+                  </div>
+                </td>
+              </tr>
+            <% }) %>
+          <% } else { %>
+            <tr>
+              <td colspan="4" class="text-center">No symptoms found.</td>
+            </tr>
+          <% } %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- Pagination Links -->
+<nav aria-label="Page navigation">
+  <ul class="pagination justify-content-center mt-3">
+
+    <% if (currentPage > 1) { %>
+      <li class="page-item">
+        <a class="page-link" href="?page=<%= currentPage - 1 %>&limit=<%= limit %>">Previous</a>
+      </li>
+    <% } else { %>
+      <li class="page-item disabled">
+        <span class="page-link">Previous</span>
+      </li>
+    <% } %>
+
+    <% for(let i = 1; i <= totalPages; i++) { %>
+      <li class="page-item <%= currentPage === i ? 'active' : '' %>">
+        <a class="page-link" href="?page=<%= i %>&limit=<%= limit %>"><%= i %></a>
+      </li>
+    <% } %>
+
+    <% if (currentPage < totalPages) { %>
+      <li class="page-item">
+        <a class="page-link" href="?page=<%= currentPage + 1 %>&limit=<%= limit %>">Next</a>
+      </li>
+    <% } else { %>
+      <li class="page-item disabled">
+        <span class="page-link">Next</span>
+      </li>
+    <% } %>
+
+  </ul>
+</nav>
+
+
+
+  <div
+  class="modal fade"
+  id="confirmDeleteModal"
+  tabindex="-1"
+  aria-labelledby="confirmDeleteModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered">
+    <form method="GET" id="deleteForm">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="confirmDeleteModalLabel">Confirm Delete</h5>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body">
+          Are you sure you want to delete <strong id="modalSymptomName"></strong>?
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-bs-dismiss="modal"
+          >
+            Cancel
+          </button>
+          <button type="submit" class="btn btn-danger">Yes, Delete</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const deleteButtons = document.querySelectorAll('.delete-btn');
+    const confirmModal = new bootstrap.Modal(document.getElementById('confirmDeleteModal'));
+    const modalSymptomName = document.getElementById('modalSymptomName');
+    const deleteForm = document.getElementById('deleteForm');
+
+    let symptomIdToDelete = null;
+
+    deleteButtons.forEach(button => {
+      button.addEventListener('click', (e) => {
+        e.preventDefault();
+        symptomIdToDelete = button.getAttribute('data-id');
+        const symptomName = button.getAttribute('data-name');
+        modalSymptomName.textContent = symptomName;
+        confirmModal.show();
+      });
+    });
+
+    deleteForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      if (symptomIdToDelete) {
+        window.location.href = `/symptoms/delete/${symptomIdToDelete}`;
+      }
+    });
+
+    // Show alert if redirected after deletion
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('deleted') === 'true') {
+      alert('Symptom deleted successfully!');
+      history.replaceState(null, '', window.location.pathname);
+    }
+  });
+</script>
+
+
+  <!-- Bootstrap JS (Optional for Bootstrap Components like Modal or Dropdown) -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Bootstrap Icons for Edit and Delete -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+</body>
+</html>
+
