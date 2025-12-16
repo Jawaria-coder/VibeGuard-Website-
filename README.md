@@ -1,5 +1,7 @@
 # VibeGuard  
 
+See live at https://vibeguard-sigma.vercel.app/
+
 VibeGuard is a **healthcare web application** designed to help users **check symptoms, explore possible causes, remedies, treatments, lifestyle tips, and connect with doctors**. It also provides users with a personalized **health dashboard** where they can track vital health metrics, download symptom reports, and manage their profile.  
 
 The system also includes an **Admin Panel** for managing body parts, symptoms, doctors, medicines, and users.  
@@ -151,7 +153,7 @@ VibeGuard/
 ##  Installation  
 
 ### Live Run
-- https://vibe-guard-iq2q.onrender.com
+- https://vibeguard-sigma.vercel.app/
 
 
 ### Run Locally
